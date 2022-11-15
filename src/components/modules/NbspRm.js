@@ -44,6 +44,28 @@ export default class NbspRm extends Component {
             outTxt: str1
         })
     }
+    createBullet = () => {
+        let str1 = this.state.inpTxt;
+        let strArr = str1.split("\n");
+        for (let i = 0; i < strArr.length; i++) {
+            let trimTxt = strArr[i].trim();
+            let charTxt = trimTxt.charAt(0).toString()
+            if (charTxt.match(/[a-zA-Z0-9]/i))
+                trimTxt = trimTxt.substring(2,);
+            else {
+                trimTxt = trimTxt.substring(1,);
+            }
+            strArr[i] = `<li>${trimTxt}</li>`
+        }
+        str1 = strArr.join("\n");
+
+        str1 = `<ul>
+        ${str1}
+        </ul>`
+        this.setState({
+            outTxt: str1
+        })
+    }
     alertPop = () => {
         navigator.clipboard.writeText(this.state.outTxt)
         this.setState({
@@ -59,9 +81,10 @@ export default class NbspRm extends Component {
         return (
             <div>
                 <h2 className='my-2 row text-center'>Removing Nbsp and double space from text</h2>
-                <div className='row mb-3'>
-                    <button className='col btn btn-success me-3' onClick={this.removeNbspFunc}>Remove nbsp</button>
+                <div className='row mb-3 gap-2'>
+                    <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
                     <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
+                    <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
                 </div>
                 <div className='row gap-3'>
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
