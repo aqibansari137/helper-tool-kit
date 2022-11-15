@@ -5,7 +5,8 @@ export default class NbspRm extends Component {
         super();
         this.state = {
             inpTxt: '',
-            outTxt: ''
+            outTxt: '',
+            popShow: false
         }
     }
     inpTxtHandler = (e) => {
@@ -36,7 +37,6 @@ export default class NbspRm extends Component {
             url = url.trim();
             text = text.trim();
             let newStr = `<p><u><a href="${url}">${text}</a></u></p>`
-            console.log("new str=", newStr);
             strArr[i] = newStr;
         }
         str1 = strArr.join("\n");
@@ -44,15 +44,37 @@ export default class NbspRm extends Component {
             outTxt: str1
         })
     }
+    alertPop = () => {
+        navigator.clipboard.writeText(this.state.outTxt)
+        this.setState({
+            popShow: true
+        })
+        setTimeout(() => {
+            this.setState({
+                popShow: false
+            })
+        }, 2000)
+    }
     render() {
         return (
             <div>
-                <h1>Removing Nbsp and double space from text</h1>
-                <textarea name="inpTxt" id="" placeholder='Enter your input here' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
-                <button onClick={this.removeNbspFunc}>Remove nbsp</button>
-                <button onClick={this.createRefer}>Create Reference</button>
-                <textarea name="outTxt" id="" placeholder='Output will be displayed here' cols="30" rows="10" value={this.state.outTxt} readOnly></textarea>
-            </div>
+                <h2 className='my-2 row text-center'>Removing Nbsp and double space from text</h2>
+                <div className='row mb-3'>
+                    <button className='col btn btn-success me-3' onClick={this.removeNbspFunc}>Remove nbsp</button>
+                    <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
+                </div>
+                <div className='row gap-3'>
+                    <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
+                    {
+                        this.state.popShow ?
+                            <div class="alert alert-success" role="alert">
+                                Text copied
+                            </div>
+                            : ""
+                    }
+                    <textarea onClick={this.alertPop} name="outTxt" id="" placeholder='Output will be displayed here' cols="30" rows="10" value={this.state.outTxt} readOnly></textarea>
+                </div>
+            </div >
         )
     }
 }
