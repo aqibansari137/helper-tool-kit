@@ -17,7 +17,10 @@ export default class NbspRm extends Component {
     }
     removeNbspFunc = () => {
         let str1 = this.state.inpTxt;
+        //fix multiple space replacement without removing next line
         str1 = str1.replaceAll("&nbsp;", " ");
+        str1 = str1.replaceAll("    ", " ");
+        str1 = str1.replaceAll("   ", " ");
         str1 = str1.replaceAll("  ", " ");
         this.setState({
             outTxt: str1
@@ -51,17 +54,15 @@ export default class NbspRm extends Component {
             let trimTxt = strArr[i].trim();
             let charTxt = trimTxt.charAt(0).toString()
             if (charTxt.match(/[a-zA-Z0-9]/i))
-                trimTxt = trimTxt.substring(2,);
+                trimTxt = trimTxt.substring(trimTxt.indexOf(".") + 1,);
             else {
                 trimTxt = trimTxt.substring(1,);
             }
             strArr[i] = `<li>${trimTxt}</li>`
         }
+        strArr.unshift("<ul>");
+        strArr.push("</ul>");
         str1 = strArr.join("\n");
-
-        str1 = `<ul>
-        ${str1}
-        </ul>`
         this.setState({
             outTxt: str1
         })
@@ -80,7 +81,7 @@ export default class NbspRm extends Component {
     render() {
         return (
             <div>
-                <h2 className='my-2 row text-center'>Removing Nbsp and double space from text</h2>
+                <h2 className='my-2 row text-center'>Clean your code + get a helping hand</h2>
                 <div className='row mb-3 gap-2'>
                     <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
                     <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
