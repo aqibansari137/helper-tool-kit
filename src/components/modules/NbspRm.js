@@ -17,11 +17,15 @@ export default class NbspRm extends Component {
     }
     removeNbspFunc = () => {
         let str1 = this.state.inpTxt;
-        //fix multiple space replacement without removing next line
         str1 = str1.replaceAll("&nbsp;", " ");
-        str1 = str1.replaceAll("    ", " ");
-        str1 = str1.replaceAll("   ", " ");
-        str1 = str1.replaceAll("  ", " ");
+        let str1Arr = str1.split(" ");
+        // eslint-disable-next-line array-callback-return
+        str1Arr = str1Arr.filter(item => {
+            if (item !== " ")
+                return item;
+        })
+        str1 = str1Arr.join(" ");
+        console.log(str1);
         this.setState({
             outTxt: str1
         })
@@ -55,9 +59,9 @@ export default class NbspRm extends Component {
             let charTxt = trimTxt.charAt(0).toString()
             if (charTxt.match(/[a-zA-Z0-9]/i))
                 trimTxt = trimTxt.substring(trimTxt.indexOf(".") + 1,);
-            else {
+            else
                 trimTxt = trimTxt.substring(1,);
-            }
+            trimTxt = trimTxt.trim()
             strArr[i] = `<li>${trimTxt}</li>`
         }
         strArr.unshift("<ul>");
@@ -80,7 +84,7 @@ export default class NbspRm extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='container container-fluid'>
                 <h2 className='my-2 row text-center'>Clean your code + get a helping hand</h2>
                 <div className='row mb-3 gap-2'>
                     <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
