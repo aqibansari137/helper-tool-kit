@@ -55,9 +55,12 @@ export default class NbspRm extends Component {
     createBullet = () => {
         let str1 = this.state.inpTxt;
         let strArr = str1.split("\n");
+        let olFlag = false;
         for (let i = 0; i < strArr.length; i++) {
             let trimTxt = strArr[i].trim();
             let charTxt = trimTxt.charAt(0).toString()
+            if (charTxt.match(/[0-9]/i) && !olFlag)
+                olFlag = true;
             if (charTxt.match(/[a-zA-Z0-9]/i))
                 trimTxt = trimTxt.substring(trimTxt.indexOf(".") + 1,);
             else
@@ -65,8 +68,15 @@ export default class NbspRm extends Component {
             trimTxt = trimTxt.trim()
             strArr[i] = `<li>${trimTxt}</li>`
         }
-        strArr.unshift("<ul>");
-        strArr.push("</ul>");
+        if (olFlag) {
+            strArr.unshift("<ol>");
+            strArr.push("</ol>");
+        }
+        else {
+            strArr.unshift("<ul>");
+            strArr.push("</ul>");
+
+        }
         str1 = strArr.join("\n");
         this.setState({
             outTxt: str1
@@ -103,7 +113,7 @@ export default class NbspRm extends Component {
                 </div>
                 <div className="row mb-3 gap-2">
                     <input type="text" className='col-md-8' placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
-                    <button className='col btn btn-success' onClick={this.removeTags}>remove tag</button>
+                    <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
                 </div>
                 <div className='row gap-3'>
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
