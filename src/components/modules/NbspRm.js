@@ -6,6 +6,7 @@ export default class NbspRm extends Component {
         this.state = {
             inpTxt: '',
             outTxt: '',
+            rmtag: '',
             popShow: false
         }
     }
@@ -71,6 +72,15 @@ export default class NbspRm extends Component {
             outTxt: str1
         })
     }
+    removeTags = () => {
+        let str1 = this.state.inpTxt;
+        let tag = this.state.rmtag;
+        str1 = str1.replaceAll(`<${tag}>`, "");
+        str1 = str1.replaceAll(`</${tag}>`, "");
+        this.setState({
+            outTxt: str1
+        })
+    }
     alertPop = () => {
         navigator.clipboard.writeText(this.state.outTxt)
         this.setState({
@@ -90,6 +100,10 @@ export default class NbspRm extends Component {
                     <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
                     <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
                     <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
+                </div>
+                <div className="row mb-3 gap-2">
+                    <input type="text" className='col-md-8' placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                    <button className='col btn btn-success' onClick={this.removeTags}>remove tag</button>
                 </div>
                 <div className='row gap-3'>
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
