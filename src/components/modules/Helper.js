@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
+import * as Icon from 'react-bootstrap-icons';
+import $ from 'jquery'
+$(document).ready(function () {
+    $(".operations").hide();
+    $(".btn-success").click(function () {
+        window.location = "#output";
+    })
+    $(".btn1").click(function () {
+        $(".operations").slideToggle("slow");
+        $(".arrow").toggleClass("rotateRight")
+    });
+});
 
-export default class NbspRm extends Component {
+export default class Helper extends Component {
     constructor() {
         super();
         this.state = {
             inpTxt: '',
             outTxt: '',
             rmtag: '',
-            popShow: false
+            findStr: '',
+            replStr: '',
+            popShow: false,
+            opShow: false
         }
     }
     inpTxtHandler = (e) => {
@@ -46,6 +61,9 @@ export default class NbspRm extends Component {
             text = text.trim();
             let newStr = `<p><u><a href="${url}">${text}</a></u></p>`
             strArr[i] = newStr;
+        }
+        if (strArr[0].substring(0, 3) !== "<p>") {
+            strArr[0] = `<p><strong>${strArr[0]}</strong></p>`;
         }
         str1 = strArr.join("\n");
         this.setState({
@@ -91,6 +109,15 @@ export default class NbspRm extends Component {
             outTxt: str1
         })
     }
+    replaceStr = () => {
+        let inp = this.state.inpTxt;
+        let fnd = this.state.findStr;
+        let repl = this.state.replStr;
+        inp = inp.replaceAll(fnd, repl);
+        this.setState({
+            outTxt: inp
+        })
+    }
     alertPop = () => {
         navigator.clipboard.writeText(this.state.outTxt)
         this.setState({
@@ -105,17 +132,27 @@ export default class NbspRm extends Component {
     render() {
         return (
             <div className='container container-fluid'>
-                <h2 className='my-2 row text-center'>Clean your code + get a helping hand</h2>
-                <div className='row mb-3 gap-2'>
-                    <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
-                    <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
-                    <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
+                <div className='row my-3 justify-content-space-between'>
+                    <h2 className='col-md-9'>Clean your code + get a helping hand</h2>
+                    <button className="col-md-3 btn btn1">Operations <Icon.CaretRightFill className='arrow' /></button>
                 </div>
-                <div className="row mb-3 gap-2">
-                    <input type="text" className='col-md-8' placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
-                    <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
+                <div className='operations'>
+                    <div className='row mb-3 gap-2'>
+                        <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
+                        <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
+                        <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
+                    </div>
+                    <div className="row mb-3 gap-2">
+                        <input type="text" className='col-md-8' placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
+                    </div>
+                    <div className="row mb-3 gap-2">
+                        <input type="text" className='col-md' placeholder='Find' name="findStr" value={this.state.findStr} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <input type="text" className='col-md' placeholder='Replace' name="replStr" value={this.state.replStr} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <button className='col-md btn btn-success' onClick={this.replaceStr}>Replace String</button>
+                    </div>
                 </div>
-                <div className='row gap-3'>
+                <div className='row gap-3 io-area' id='output'>
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
                     {
                         this.state.popShow ?
@@ -124,6 +161,7 @@ export default class NbspRm extends Component {
                             </div>
                             : ""
                     }
+                    <h5>Output <Icon.ChevronCompactDown /></h5>
                     <textarea onClick={this.alertPop} name="outTxt" id="" placeholder='Output will be displayed here' cols="30" rows="10" value={this.state.outTxt} readOnly></textarea>
                 </div>
             </div >

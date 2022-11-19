@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import Logo from "../../assets/technical-support.png"
+import "../styles/Helper.css"
 
 export default class Header extends Component {
     render() {

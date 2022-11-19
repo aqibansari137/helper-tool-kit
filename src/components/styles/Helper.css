@@ -1,0 +1,13 @@
+.rotateRight {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+.arrow {
+  display: inline-block;
+  transition: transform 500ms;
+}
+.btn1 {
+  color: #fff;
+  background-color: #198754;
+  border-color: #198754;
+}

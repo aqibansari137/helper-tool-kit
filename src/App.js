@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Footer from './components/modules/Footer'
 import Header from './components/modules/Header'
-import NbspRm from './components/modules/NbspRm'
+import Helper from './components/modules/Helper'
 
 export default class App extends Component {
   render() {
@@ -9,7 +9,7 @@ export default class App extends Component {
       <div>
         <Header />
         <div className="container">
-          <NbspRm />
+          <Helper />
         </div>
         <Footer />
       </div>
