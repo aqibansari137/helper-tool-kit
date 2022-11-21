@@ -12,7 +12,7 @@ export default class App extends Component {
         <Header />
         <div className="container">
           <Routes>
-            <Route index element={<Helper />} />
+            <Route path='/' element={<Helper />} />
             <Route path='task' element={<Task />} />
           </Routes>
         </div>

@@ -19,7 +19,7 @@ export default class Header extends Component {
                                 <NavLink to={'/'} className="nav-link">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to={'/task'} className="nav-link">Task</NavLink>
+                                <NavLink to={'task'} className="nav-link">Task</NavLink>
                             </li>
                         </ul>
                     </div>
