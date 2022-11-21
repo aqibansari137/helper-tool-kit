@@ -20,11 +20,13 @@ export default class Task extends Component {
         }))
     }
     componentDidMount = () => {
-        let data = JSON.parse(localStorage.getItem("TaskList"))
-        this.setState({
-            id: data.id,
-            taskList: data.taskList
-        })
+        if (localStorage.getItem("TaskList") !== null) {
+            let data = JSON.parse(localStorage.getItem("TaskList"))
+            this.setState({
+                id: data.id,
+                taskList: data.taskList
+            })
+        }
     }
     clearTask = () => {
         this.setState({
