@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import Logo from "../../assets/technical-support.png"
+import { NavLink } from 'react-router-dom'
 import "../styles/Helper.css"
 
 export default class Header extends Component {
@@ -15,10 +16,10 @@ export default class Header extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                <NavLink to={'/'} className="nav-link">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                                <NavLink to={'/task'} className="nav-link">Task</NavLink>
                             </li>
                         </ul>
                     </div>

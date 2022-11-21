@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
-import Footer from './components/modules/Footer'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/modules/Header'
+import Footer from './components/modules/Footer'
 import Helper from './components/modules/Helper'
+import Task from './components/modules/Task'
 
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <Router>
         <Header />
         <div className="container">
-          <Helper />
+          <Routes>
+            <Route index element={<Helper />} />
+            <Route path='task' element={<Task />} />
+          </Routes>
         </div>
         <Footer />
-      </div>
+      </Router>
     )
   }
 }

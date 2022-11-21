@@ -1,13 +1,12 @@
 .rotateRight {
   display: inline-block;
   transform: rotate(90deg);
+  transition: transform 500ms;
 }
 .arrow {
   display: inline-block;
   transition: transform 500ms;
 }
-.btn1 {
-  color: #fff;
-  background-color: #198754;
-  border-color: #198754;
+svg {
+  cursor: pointer;
 }
