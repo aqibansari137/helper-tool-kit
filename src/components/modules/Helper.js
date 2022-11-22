@@ -28,6 +28,11 @@ export default class Helper extends Component {
             this.setState({
                 inpErr: true
             })
+            setTimeout(() => {
+                this.setState({
+                    inpErr: false
+                })
+            }, 2000)
             return false;
 
         }
@@ -48,8 +53,8 @@ export default class Helper extends Component {
             this.setState({
                 outTxt: str1
             })
+            window.location = "#output";
         }
-
     }
     createRefer = () => {
         if (this.inpvalid()) {

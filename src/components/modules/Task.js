@@ -10,7 +10,8 @@ export default class Task extends Component {
             taskList: [],
             inpErr: false,
             editEnable: false,
-            editValue: ''
+            editValue: '',
+            editId: ''
         }
     }
     componentDidUpdate = () => {
@@ -48,6 +49,11 @@ export default class Task extends Component {
             this.setState({
                 inpErr: true
             })
+            setTimeout(() => {
+                this.setState({
+                    inpErr: false
+                })
+            }, 2000)
             return false;
 
         }
@@ -96,7 +102,8 @@ export default class Task extends Component {
 
             this.setState({
                 editEnable: true,
-                editValue: data[0].name
+                editValue: data[0].name,
+                editId: data[0].id
             })
         }
     }
@@ -115,7 +122,7 @@ export default class Task extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container taskStyle">
                 <h2 className='row my-3'>Keep tasks at one place</h2>
                 <div className="row addContent gap-2">
                     {
@@ -146,7 +153,7 @@ export default class Task extends Component {
                                         return <tr key={index}>
                                             <th scope="row">{index + 1}</th>
                                             {
-                                                this.state.editEnable ?
+                                                this.state.editEnable && this.state.editId === item.id ?
                                                     <td><input type="text" name='editValue' value={this.state.editValue} onChange={(e) => this.handleInp(e)} /></td>
                                                     :
                                                     <td className={item.status === 'completed' ? "text-decoration-line-through" : ""}>{item.name}</td>
@@ -161,7 +168,7 @@ export default class Task extends Component {
                                             <td>
                                                 <div className='pt-2 d-flex align-items-center justify-content-evenly'>
                                                     {
-                                                        this.state.editEnable ?
+                                                        this.state.editEnable && this.state.editId === item.id ?
                                                             <Icon.CheckSquare onClick={() => this.submitEdit(item.id)} data-bs-toggle="tooltip" title="save" />
                                                             :
                                                             <Icon.PencilSquare onClick={() => this.enableEdit(item.id)} data-bs-toggle="tooltip" title="edit" style={item.status === "completed" ? { color: 'grey', opacity: '0.5' } : {}} />
