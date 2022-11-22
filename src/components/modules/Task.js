@@ -154,17 +154,21 @@ export default class Task extends Component {
                                             <th scope="row">{index + 1}</th>
                                             {
                                                 this.state.editEnable && this.state.editId === item.id ?
-                                                    <td><input type="text" name='editValue' value={this.state.editValue} onChange={(e) => this.handleInp(e)} /></td>
+                                                    <td colSpan={2}><input className='w-100' type="text" name='editValue' value={this.state.editValue} onChange={(e) => this.handleInp(e)} /></td>
                                                     :
                                                     <td className={item.status === 'completed' ? "text-decoration-line-through" : ""}>{item.name}</td>
                                             }
                                             {/* <td className={item.status ? "text-success" : "text-danger"}>{item.status ? "Done" : "Pending"}</td> */}
-                                            <td><select className="form-select" name="" id="" value={item.status} onChange={(e) => this.statusUpdate(item.id, e)}>
-                                                <option value="open">open</option>
-                                                <option value="in progress">in progress</option>
-                                                <option value="completed">completed</option>
-                                                <option value="blocked">blocked</option>
-                                            </select></td>
+                                            {this.state.editEnable && this.state.editId === item.id ? "" :
+                                                <td>
+                                                    <select className="form-select" name="" id="" value={item.status} onChange={(e) => this.statusUpdate(item.id, e)}>
+                                                        <option value="open">open</option>
+                                                        <option value="in progress">in progress</option>
+                                                        <option value="completed">completed</option>
+                                                        <option value="blocked">blocked</option>
+                                                    </select>
+                                                </td>
+                                            }
                                             <td>
                                                 <div className='pt-2 d-flex align-items-center justify-content-evenly'>
                                                     {
