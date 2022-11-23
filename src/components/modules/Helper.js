@@ -150,6 +150,11 @@ export default class Helper extends Component {
             })
         }, 2000)
     }
+    keyHandler = (...action) => {
+        if (action[0].keyCode === 13) {
+            if (action[1] === "rmtag") this.removeTags();
+        }
+    }
     render() {
         return (
             <div className='container container-fluid'>
@@ -160,7 +165,7 @@ export default class Helper extends Component {
                 <div className='collapse navbar-collapse' id='opContent'>
                     {
                         this.state.inpErr ?
-                            <div class="row alert alert-danger" role="alert">
+                            <div className="row alert alert-danger" role="alert">
                                 Please provide an input to proceed
                             </div>
                             : ""
@@ -171,7 +176,7 @@ export default class Helper extends Component {
                         <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
                     </div>
                     <div className="row mb-3 gap-2">
-                        <input type="text" className='col-md-8' placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <input type="text" className='col-md-8' onKeyUp={(e) => this.keyHandler(e, "rmtag")} placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
                         <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
                     </div>
                     <div className="row mb-3 gap-2">
@@ -185,7 +190,7 @@ export default class Helper extends Component {
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
                     {
                         this.state.popShow ?
-                            <div class="alert alert-success" role="alert">
+                            <div className="alert alert-success" role="alert">
                                 Text copied
                             </div>
                             : ""

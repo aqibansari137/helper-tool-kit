@@ -120,6 +120,12 @@ export default class Task extends Component {
             taskList: newData
         })
     }
+    keyHandler = (...action) => {
+        if (action[0].keyCode === 13) {
+            if (action[1] === "inp") this.addTask();
+            if (action[1] === "edit") this.submitEdit(action[2]);
+        }
+    }
     render() {
         return (
             <div className="container taskStyle">
@@ -132,7 +138,7 @@ export default class Task extends Component {
                             </div>
                             : ""
                     }
-                    <input className='col-sm-9' type="text" name="taskinp" placeholder="Enter the task" value={this.state.taskinp} onChange={(e) => this.handleInp(e)} />
+                    <input className='col-sm-9' type="text" name="taskinp" onKeyUp={(e) => this.keyHandler(e, "inp")} placeholder="Enter the task" value={this.state.taskinp} onChange={(e) => this.handleInp(e)} />
                     <button className='col btn btn-success' onClick={this.addTask}>Add</button>
                     <button className='col btn btn-danger' onClick={this.clearTask}>Clear</button>
                 </div>
@@ -154,7 +160,7 @@ export default class Task extends Component {
                                             <th scope="row">{index + 1}</th>
                                             {
                                                 this.state.editEnable && this.state.editId === item.id ?
-                                                    <td colSpan={2}><input className='w-100' type="text" name='editValue' value={this.state.editValue} onChange={(e) => this.handleInp(e)} /></td>
+                                                    <td colSpan={2}><input className='w-100' type="text" name='editValue' onKeyUp={(e) => this.keyHandler(e, "edit", item.id)} value={this.state.editValue} onChange={(e) => this.handleInp(e)} /></td>
                                                     :
                                                     <td className={item.status === 'completed' ? "text-decoration-line-through" : ""}>{item.name}</td>
                                             }
