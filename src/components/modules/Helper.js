@@ -115,6 +115,23 @@ export default class Helper extends Component {
             window.location = "#output";
         }
     }
+    addTags = () => {
+        if (this.inpvalid()) {
+            let str1 = this.state.inpTxt;
+            let tag = this.state.rmtag;
+            let strArr = str1.split("\n");
+            for (let i = 0; i < strArr.length; i++) {
+                let trimTxt = strArr[i].trim();
+                trimTxt = `<${tag}>${trimTxt}</${tag}>`;
+                strArr[i] = trimTxt;
+            }
+            str1 = strArr.join("\n");
+            this.setState({
+                outTxt: str1
+            })
+            window.location = "#output";
+        }
+    }
     removeTags = () => {
         if (this.inpvalid()) {
             let str1 = this.state.inpTxt;
@@ -176,7 +193,8 @@ export default class Helper extends Component {
                         <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
                     </div>
                     <div className="row mb-3 gap-2">
-                        <input type="text" className='col-md-8' onKeyUp={(e) => this.keyHandler(e, "rmtag")} placeholder='Enter the html tag to be removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <input type="text" className='col-md-8' onKeyUp={(e) => this.keyHandler(e, "rmtag")} placeholder='Enter the html tag to be added/removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
+                        <button className='col btn btn-success' onClick={this.addTags}>Add tags</button>
                         <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
                     </div>
                     <div className="row mb-3 gap-2">

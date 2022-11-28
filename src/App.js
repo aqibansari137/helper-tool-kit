@@ -4,6 +4,7 @@ import Header from './components/modules/Header'
 import Footer from './components/modules/Footer'
 import Helper from './components/modules/Helper'
 import Task from './components/modules/Task'
+import CodeTip from './components/modules/CodeTip'
 
 export default class App extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class App extends Component {
           <Routes>
             <Route path='/' element={<Helper />} />
             <Route path='task' element={<Task />} />
+            <Route path='code-tip' element={<CodeTip />} />
           </Routes>
         </div>
         <Footer />
