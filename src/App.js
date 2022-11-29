@@ -5,6 +5,7 @@ import Footer from './components/modules/Footer'
 import Helper from './components/modules/Helper'
 import Task from './components/modules/Task'
 import CodeTip from './components/modules/CodeTip'
+import ImgComp from './components/modules/ImgComp'
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends Component {
           <Routes>
             <Route path='/' element={<Helper />} />
             <Route path='task' element={<Task />} />
+            <Route path='img-comp' element={<ImgComp />} />
             <Route path='code-tip' element={<CodeTip />} />
           </Routes>
         </div>

@@ -8,7 +8,7 @@ export default class CodeTip extends Component {
     constructor() {
         super();
         this.state = {
-            arrowRotate: -1,
+            arrowRotate: 0,
             tipsList: [
                 {
                     id: 0,
@@ -28,8 +28,15 @@ export default class CodeTip extends Component {
                     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni molestias sint animi odio et nam assumenda',
                     code: '',
                 },
-            ]
+            ],
+            searchTxt: '',
+            searchResult: []
         }
+    }
+    componentDidMount = () => {
+        this.setState({
+            searchResult: this.state.tipsList
+        })
     }
     rotateArrow = (i) => {
         let arrw = this.state.arrowRotate === i ? -1 : i;
@@ -38,16 +45,29 @@ export default class CodeTip extends Component {
         })
 
     }
+    inpTxtHandler = (e) => {
+        let name = e.target.name;
+        this.setState({
+            [name]: e.target.value,
+            inpErr: false
+        })
+    }
+    searchTips = () => {
+
+        let newList = this.state.tipsList.filter(x => x.title.toLowerCase().includes(this.state.searchTxt.toLowerCase()))
+        this.setState({
+            searchResult: newList
+        })
+    }
     render() {
         return (
             <div className='container'>
                 <h2 className='row my-3'>Tips for Code</h2>
                 <div className="row gap-2 mb-3">
-                    <input className='col-md-9' type="text" placeholder='search...' />
-                    <button className='col btn btn-success'>search</button>
+                    <input className='col' type="text" placeholder='search...' name='searchTxt' value={this.state.searchTxt} onChange={this.inpTxtHandler} onKeyUp={this.searchTips} />
                 </div>
-                {
-                    this.state.tipsList.map((item, i) => {
+                {this.state.searchResult.length === 0 ? <h4>No result found</h4>
+                    : this.state.searchResult.map((item, i) => {
                         return <div className="card mb-3 row" key={i}>
                             <div className="card-header bg-success" onClick={() => this.rotateArrow(i)}>
                                 <div className="d-flex justify-content-between align-items-center">

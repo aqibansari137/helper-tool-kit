@@ -21,6 +21,9 @@ export default class Header extends Component {
                             <li className="nav-item">
                                 <NavLink to={'task'} className="nav-link">Task</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink to={'img-comp'} className="nav-link">Compress Image</NavLink>
+                            </li>
                             {/* <li className="nav-item">
                                 <NavLink to={'code-tip'} className="nav-link">Code Tips</NavLink>
                             </li> */}
