@@ -3,3 +3,44 @@
   border-radius: 5px;
   padding: 0.7em;
 }
+
+.tabShow {
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+  overflow: hidden;
+}
+
+.tabHide {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}
+.card {
+  border: 2px solid #3d7928 !important;
+}
+.card-body {
+  background-color: #fafdfa;
+}
+.card-header {
+  color: #fff;
+}
+.card-title {
+  color: #165d3a;
+}
+
+code {
+  background-color: #d2ebde;
+  color: #165d3a !important;
+  border-radius: 0.3rem;
+  padding: 4px 5px 5px;
+  white-space: nowrap;
+}
+
+pre code {
+  white-space: inherit;
+}
+
+pre {
+  background-color: #d2ebde;
+  padding: 5px;
+  border-radius: 0.3em;
+}

@@ -122,7 +122,20 @@ export default class Helper extends Component {
             let strArr = str1.split("\n");
             for (let i = 0; i < strArr.length; i++) {
                 let trimTxt = strArr[i].trim();
-                trimTxt = `<${tag}>${trimTxt}</${tag}>`;
+                if (tag === "img") {
+                    trimTxt = `<img src="${trimTxt}" />`
+                }
+                else if (tag === "a") {
+                    trimTxt = `<a href="${trimTxt}" ></a>`
+                }
+                else if (tag === "select") {
+                    if (i === 0) trimTxt = `<select>\n<option value="${trimTxt}">${trimTxt}</option>`
+                    else if (i === strArr.length - 1) trimTxt = `<option value="${trimTxt}">${trimTxt}</option>\n</select>`
+                    else trimTxt = `<option value="${trimTxt}">${trimTxt}</option>`
+                }
+                else {
+                    trimTxt = `<${tag}>${trimTxt}</${tag}>`;
+                }
                 strArr[i] = trimTxt;
             }
             str1 = strArr.join("\n");
