@@ -1,0 +1,16 @@
+.clipboard-area {
+  display: grid;
+  padding: 0 !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+}
+@media (max-width: 786px) {
+  .clipboard-area {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .clipboard-area {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -6,6 +6,7 @@ import Helper from './components/modules/Helper'
 import Task from './components/modules/Task'
 import CodeTip from './components/modules/CodeTip'
 import ImgComp from './components/modules/ImgComp'
+import ClipBoard from './components/modules/ClipBoard'
 
 export default class App extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends Component {
             <Route path='task' element={<Task />} />
             <Route path='img-comp' element={<ImgComp />} />
             <Route path='code-tip' element={<CodeTip />} />
+            <Route path='clip-board' element={<ClipBoard />} />
           </Routes>
         </div>
         <Footer />

@@ -7,7 +7,7 @@ export default class Footer extends Component {
             <footer className="text-muted py-3 mt-3 bg-light">
                 <div className="container">
                     <p className="float-end mb-1">
-                        <a href="#">Back to top</a>
+                        <a className='btn btn-light pt-0' onClick={() => document.documentElement.scrollTop = 0}>Back to top</a>
                     </p>
                     <p className="mb-1">Made by Aqib</p>
                 </div>
