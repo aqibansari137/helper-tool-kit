@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/ClipBoard.css'
+import * as Icon from 'react-bootstrap-icons';
 
 export default class ClipBoard extends Component {
     constructor() {
@@ -9,6 +10,7 @@ export default class ClipBoard extends Component {
             inpTxt: '',
             popShow: false,
             inpErr: false,
+            listID: 1
         }
     }
     inpvalid = () => {
@@ -46,12 +48,26 @@ export default class ClipBoard extends Component {
     addClips = () => {
         if (this.inpvalid()) {
             let newList = this.state.clipList;
-            newList.push(this.state.inpTxt);
+            newList.push({
+                id: this.state.listID,
+                data: this.state.inpTxt
+            });
             this.setState({
                 clipList: newList,
-                inpTxt: ''
+                inpTxt: '',
+                listID: this.state.listID + 1
             })
         }
+    }
+    delClip = (id) => {
+        let currList = this.state.clipList;
+        currList = currList.filter((item) => {
+            return item.id !== id
+        })
+        this.setState({
+            clipList: currList
+        })
+        console.log(id)
     }
     clearClip = () => {
         this.setState({
@@ -59,6 +75,7 @@ export default class ClipBoard extends Component {
             inpTxt: '',
             popShow: false,
             inpErr: false,
+            listID: 1
         })
     }
 
@@ -88,12 +105,14 @@ export default class ClipBoard extends Component {
                     }
                     {
                         this.state.clipList.length === 0 ? <h3 className='text-center'>No clips added</h3>
-                            : <div className="clipboard-area">
-                                {this.state.clipList.map((item, i) => {
-                                    return <textarea onClick={this.textCopied} readOnly key={i} value={item} />
+                            : <div className="clipboard-area">{
+                                this.state.clipList.map((item, i) => {
+                                    return <div key={i}>
+                                        <textarea onClick={this.textCopied} readOnly value={item.data} />
+                                        <Icon.Trash className='delList' onClick={() => this.delClip(item.id)}></Icon.Trash>
+                                    </div>
                                 })
-                                }
-                            </div>
+                            }</div>
                     }
                 </div>
             </div>
