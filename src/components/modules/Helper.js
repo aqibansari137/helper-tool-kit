@@ -149,7 +149,7 @@ export default class Helper extends Component {
         if (this.inpvalid()) {
             let str1 = this.state.inpTxt;
             let tag = this.state.rmtag;
-            let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//=]*>`, "gi");
+            let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//= "']*>`, "gi");
             str1 = str1.replace(re, "");
             str1 = str1.replaceAll(`</${tag}>`, "");
             this.setState({
