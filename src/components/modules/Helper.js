@@ -16,7 +16,8 @@ export default class Helper extends Component {
             arrowRotate: false,
             timer: 2000,
             showDialogBox: false,
-            inpDialog: ''
+            inpDialog: '',
+            inpDialogErr: false
         }
     }
     inpTxtHandler = (e) => {
@@ -26,14 +27,15 @@ export default class Helper extends Component {
             inpErr: false
         })
     }
-    inpvalid = () => {
+    inpvalid = (type = 'default') => {
+        let errtype = (type === 'dialog') ? 'inpDialogErr' : 'inpErr';
         if (this.state.inpTxt === '') {
             this.setState({
-                inpErr: true
+                [errtype]: true
             })
             setTimeout(() => {
                 this.setState({
-                    inpErr: false
+                    [errtype]: false
                 })
             }, this.state.timer)
             return false;
@@ -215,20 +217,22 @@ export default class Helper extends Component {
     //     })
     // }
     createStructureFromTxt = () => {
-        let str1 = this.state.inpTxt;
-        let strArr = str1.split("\n");
-        let dialogStruct = this.state.inpDialog;
-        let strArr1 = dialogStruct.split("\n");
-        let len = strArr1.length;
-        for (let i = 0; i < len; i++) {
-            strArr[i] = `<${strArr1[i]}>${strArr[i]}</${strArr1[i]}>`
+        if (this.inpvalid('dialog')) {
+            let str1 = this.state.inpTxt;
+            let strArr = str1.split("\n");
+            let dialogStruct = this.state.inpDialog;
+            let strArr1 = dialogStruct.split("\n");
+            let len = strArr1.length;
+            for (let i = 0; i < len; i++) {
+                strArr[i] = `<${strArr1[i]}>${strArr[i]}</${strArr1[i]}>`
+            }
+            str1 = strArr.join('\n');
+            this.setState({
+                outTxt: str1,
+                showDialogBox: false
+            })
+            window.location = "#output";
         }
-        str1 = strArr.join('\n');
-        this.setState({
-            outTxt: str1,
-            showDialogBox: false
-        })
-        window.location = "#output";
     }
     render() {
         return (
@@ -265,6 +269,13 @@ export default class Helper extends Component {
                     this.state.showDialogBox ?
                         <div className="dialogBoxArea">
                             <Icon.XCircle className='dialogBoxCross' onClick={this.closeDialogbox} />
+                            {
+                                this.state.inpDialogErr ?
+                                    <div className="row alert alert-danger mt-3" role="alert">
+                                        Please provide an input before proceeding
+                                    </div>
+                                    : ""
+                            }
                             <div className="row gap-3 mt-4">
                                 <textarea name="inpDialog" id="textIn" cols="30" rows="10" placeholder="Enter the structure eg.:
                                 h3 
