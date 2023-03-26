@@ -13,7 +13,10 @@ export default class Helper extends Component {
             popShow: false,
             opShow: false,
             inpErr: false,
-            arrowRotate: false
+            arrowRotate: false,
+            timer: 2000,
+            showDialogBox: false,
+            inpDialog: ''
         }
     }
     inpTxtHandler = (e) => {
@@ -32,7 +35,7 @@ export default class Helper extends Component {
                 this.setState({
                     inpErr: false
                 })
-            }, 2000)
+            }, this.state.timer)
             return false;
 
         }
@@ -49,7 +52,6 @@ export default class Helper extends Component {
                     return item;
             })
             str1 = str1Arr.join(" ");
-            console.log(str1);
             this.setState({
                 outTxt: str1
             })
@@ -72,7 +74,8 @@ export default class Helper extends Component {
                 let newStr = `<p><u><a href="${url}">${text}</a></u></p>`
                 strArr[i] = newStr;
             }
-            if (strArr[0].substring(0, 3) !== "<p>") {
+            let numberThree = 3;
+            if (strArr[0].substring(0, numberThree) !== "<p>") {
                 strArr[0] = `<p><strong>${strArr[0]}</strong></p>`;
             }
             str1 = strArr.join("\n");
@@ -179,12 +182,53 @@ export default class Helper extends Component {
             this.setState({
                 popShow: false
             })
-        }, 2000)
+        }, this.state.timer)
     }
     keyHandler = (...action) => {
-        if (action[0].keyCode === 13) {
-            if (action[1] === "rmtag") this.removeTags();
+        let enterKey = 13;
+        if (action[0].keyCode === enterKey && action[1] === "rmtag") {
+            this.removeTags();
         }
+    }
+    closeDialogbox = () => {
+        this.setState({
+            showDialogBox: false,
+        })
+    }
+    // Might come handy next time --- adding text in text area on click
+    // insertionPoint = () => {
+    //     let text_to_add = this.state.insertPoint; // "insert-1"
+    //     let textarea = document.getElementById("textIn");
+    //     let start_position = textarea.selectionStart;
+    //     let end_position = textarea.selectionEnd;
+
+    //     textarea.value = `${textarea.value.substring(
+    //         0,
+    //         start_position
+    //     )}${text_to_add}${textarea.value.substring(
+    //         end_position,
+    //         textarea.value.length
+    //     )}`;
+    //     text_to_add = text_to_add.slice(0, -1) + (Number(text_to_add.slice(-1)) + 1);
+    //     this.setState({
+    //         insertPoint: text_to_add
+    //     })
+    // }
+    createStructureFromTxt = () => {
+        let str1 = this.state.inpTxt;
+        let strArr = str1.split("\n");
+        let dialogStruct = this.state.inpDialog;
+        let strArr1 = dialogStruct.split("\n");
+        let len = strArr1.length;
+        for (let i = 0; i < len; i++) {
+            strArr[i] = `<${strArr1[i]}>${strArr[i]}</${strArr1[i]}>`
+        }
+        str1 = strArr.join('\n');
+        this.setState({
+            outTxt: str1,
+            showDialogBox: false
+        })
+        window.location = "#output";
     }
     render() {
         return (
@@ -203,7 +247,7 @@ export default class Helper extends Component {
                     }
                     <div className='row mb-3 gap-2'>
                         <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
-                        <button className='col btn btn-success' onClick={this.createRefer}>Create Reference</button>
+                        <button className='col btn btn-success' onClick={() => this.setState({ showDialogBox: true })}>Convert txt to structure</button>
                         <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
                     </div>
                     <div className="row mb-3 gap-2">
@@ -217,6 +261,21 @@ export default class Helper extends Component {
                         <button className='col-md btn btn-success' onClick={this.replaceStr}>Replace String</button>
                     </div>
                 </div>
+                {
+                    this.state.showDialogBox ?
+                        <div className="dialogBoxArea">
+                            <Icon.XCircle className='dialogBoxCross' onClick={this.closeDialogbox} />
+                            <div className="row gap-3 mt-4">
+                                <textarea name="inpDialog" id="textIn" cols="30" rows="10" placeholder="Enter the structure eg.:
+                                h3 
+                                p 
+                                p" value={this.state.inpDialog} onChange={(e) => this.inpTxtHandler(e)} ></textarea>
+                                <button className='col-md btn btn-success' onClick={this.createStructureFromTxt}>Done</button>
+                            </div>
+                        </div>
+                        : null
+                }
+
                 <div className='row gap-3 io-area'>
                     <h5>Input <Icon.ChevronCompactDown /></h5>
                     <textarea name="inpTxt" id="" placeholder='Enter your input here and click above operation to perform' cols="30" rows="10" value={this.state.inpTxt} onChange={(e) => this.inpTxtHandler(e)}></textarea>
