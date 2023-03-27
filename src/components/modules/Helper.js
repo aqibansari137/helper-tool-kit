@@ -60,33 +60,6 @@ export default class Helper extends Component {
             window.location = "#output";
         }
     }
-    createRefer = () => {
-        if (this.inpvalid()) {
-            let str1 = this.state.inpTxt;
-            let strArr = str1.split("\n");
-            strArr[0] = strArr[0].replace("<h3>", "<p><strong>");
-            strArr[0] = strArr[0].replace("</h3>", "</strong></p>");
-            for (let i = 1; i < strArr.length; i++) {
-                let indUrl = strArr[i].indexOf("/");
-                let indText = strArr[i].indexOf("[");
-                let url = strArr[i].substring(indUrl, strArr[i].length - 1);
-                let text = strArr[i].substring(0, indText);
-                url = url.trim();
-                text = text.trim();
-                let newStr = `<p><u><a href="${url}">${text}</a></u></p>`
-                strArr[i] = newStr;
-            }
-            let numberThree = 3;
-            if (strArr[0].substring(0, numberThree) !== "<p>") {
-                strArr[0] = `<p><strong>${strArr[0]}</strong></p>`;
-            }
-            str1 = strArr.join("\n");
-            this.setState({
-                outTxt: str1
-            })
-            window.location = "#output";
-        }
-    }
     createBullet = () => {
         if (this.inpvalid()) {
             let str1 = this.state.inpTxt;
@@ -153,7 +126,7 @@ export default class Helper extends Component {
     removeTags = () => {
         if (this.inpvalid()) {
             let str1 = this.state.inpTxt;
-            let tag = this.state.rmtag;
+            let tag = this.state.rmtag.toLowerCase();
             let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//= "']*>`, "gi");
             str1 = str1.replace(re, "");
             str1 = str1.replaceAll(`</${tag}>`, "");
@@ -222,9 +195,14 @@ export default class Helper extends Component {
             let strArr = str1.split("\n");
             let dialogStruct = this.state.inpDialog;
             let strArr1 = dialogStruct.split("\n");
-            let len = strArr1.length;
-            for (let i = 0; i < len; i++) {
-                strArr[i] = `<${strArr1[i]}>${strArr[i]}</${strArr1[i]}>`
+            strArr1 = strArr1.map(item => item.toLowerCase());
+            let len = strArr.length;
+            let len2 = strArr1.length;
+            for (let i = 0, j = 0; i < len; i++) {
+                strArr[i] = `<${strArr1[j]}>${strArr[i]}</${strArr1[j]}>`
+                if (i < len2 - 1) {
+                    j++;
+                }
             }
             str1 = strArr.join('\n');
             this.setState({
