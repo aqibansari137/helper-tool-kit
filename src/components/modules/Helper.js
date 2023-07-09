@@ -127,9 +127,20 @@ export default class Helper extends Component {
         if (this.inpvalid()) {
             let str1 = this.state.inpTxt;
             let tag = this.state.rmtag.toLowerCase();
-            let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//= "']*>`, "gi");
-            str1 = str1.replace(re, "");
-            str1 = str1.replaceAll(`</${tag}>`, "");
+            let strArr = str1.split("\n");
+            let len = strArr.length;
+            for (let i = 0; i < len; i++) {
+                if (strArr[i].indexOf(`<${tag}`) >= 0) {
+                    // Need to work on removing tag with attribute between another tag
+                    strArr[i] = strArr[i].substring(strArr[i].indexOf('>', strArr[i].indexOf(`<${tag}`)) + 1,);
+                    strArr[i] = strArr[i].replace(`</${tag}>`, '');
+                }
+
+            }
+            str1 = strArr.join('\n');
+            // let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//= "']*>`, "gi");
+            // str1 = str1.replace(re, "");
+            // str1 = str1.replaceAll(`</${tag}>`, "");
             this.setState({
                 outTxt: str1
             })
