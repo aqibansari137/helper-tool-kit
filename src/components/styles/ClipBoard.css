@@ -29,7 +29,7 @@
 /* accordian */
 .accordian.onthispage {
   height: 165px;
-  overflow-y: scroll;
+  overflow-y: auto;
   direction: rtl;
   -webkit-overflow-scrolling: touch;
 }
