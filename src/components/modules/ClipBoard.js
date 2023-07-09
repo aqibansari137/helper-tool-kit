@@ -117,14 +117,14 @@ export default class ClipBoard extends Component {
                     }
                 </div>
                 <div className='accordian onthispage'>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
-                    <li><a href="#">test</a></li>
+                    <li><a href="#">test 1</a></li>
+                    <li><a href="#">test 2</a></li>
+                    <li><a href="#">test 3</a></li>
+                    <li><a href="#">test 4</a></li>
+                    <li><a href="#">test 5</a></li>
+                    <li><a href="#">test 6</a></li>
+                    <li><a href="#">test 7</a></li>
+                    <li><a href="#">test 8</a></li>
                 </div>
             </div>
         )
