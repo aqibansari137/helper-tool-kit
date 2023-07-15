@@ -17,7 +17,10 @@ export default class Helper extends Component {
             timer: 2000,
             showDialogBox: false,
             inpDialog: '',
-            inpDialogErr: false
+            inpDialogErr: false,
+            inpInsertPosCount: 1,
+            NoOfReplacement: 0,
+            replShow: false
         }
     }
     inpTxtHandler = (e) => {
@@ -138,9 +141,6 @@ export default class Helper extends Component {
 
             }
             str1 = strArr.join('\n');
-            // let re = new RegExp(`<${tag}[-a-zA-Z0-9@:%._\\+~#?&//= "']*>`, "gi");
-            // str1 = str1.replace(re, "");
-            // str1 = str1.replaceAll(`</${tag}>`, "");
             this.setState({
                 outTxt: str1
             })
@@ -152,10 +152,21 @@ export default class Helper extends Component {
             let inp = this.state.inpTxt;
             let fnd = this.state.findStr;
             let repl = this.state.replStr;
+            let count = inp.split(fnd).length - 1;
             inp = inp.replaceAll(fnd, repl);
             this.setState({
-                outTxt: inp
+                outTxt: inp,
+                NoOfReplacement: count
             })
+            this.setState({
+                replShow: true
+            })
+            setTimeout(() => {
+                this.setState({
+                    replShow: false,
+                    NoOfReplacement: 0
+                })
+            }, this.state.timer);
             window.location = "#output";
         }
     }
@@ -181,47 +192,40 @@ export default class Helper extends Component {
             showDialogBox: false,
         })
     }
-    // Might come handy next time --- adding text in text area on click
-    // insertionPoint = () => {
-    //     let text_to_add = this.state.insertPoint; // "insert-1"
-    //     let textarea = document.getElementById("textIn");
-    //     let start_position = textarea.selectionStart;
-    //     let end_position = textarea.selectionEnd;
-
-    //     textarea.value = `${textarea.value.substring(
-    //         0,
-    //         start_position
-    //     )}${text_to_add}${textarea.value.substring(
-    //         end_position,
-    //         textarea.value.length
-    //     )}`;
-    //     text_to_add = text_to_add.slice(0, -1) + (Number(text_to_add.slice(-1)) + 1);
-    //     this.setState({
-    //         insertPoint: text_to_add
-    //     })
-    // }
     createStructureFromTxt = () => {
         if (this.inpvalid('dialog')) {
             let str1 = this.state.inpTxt;
             let strArr = str1.split("\n");
             let dialogStruct = this.state.inpDialog;
-            let strArr1 = dialogStruct.split("\n");
-            strArr1 = strArr1.map(item => item.toLowerCase());
-            let len = strArr.length;
-            let len2 = strArr1.length;
-            for (let i = 0, j = 0; i < len; i++) {
-                strArr[i] = `<${strArr1[j]}>${strArr[i]}</${strArr1[j]}>`
-                if (i < len2 - 1) {
-                    j++;
-                }
+            for (let i = 1; i <= this.state.inpInsertPosCount; i++) {
+                dialogStruct = dialogStruct.replace("insert-" + i, strArr[i - 1])
             }
-            str1 = strArr.join('\n');
             this.setState({
-                outTxt: str1,
+                outTxt: dialogStruct,
                 showDialogBox: false
             })
             window.location = "#output";
         }
+    }
+    addInsertPos = () => {
+        let textArea = document.getElementById("textIn");
+        let startPos = textArea.selectionStart;
+        let endPos = textArea.selectionEnd;
+        let textToInsert = "insert-" + this.state.inpInsertPosCount;
+        let newText = textArea.value.substring(0, startPos) + textToInsert + textArea.value.substring(endPos, textArea.value.leength);
+        this.setState({
+            inpDialog: newText,
+            inpInsertPosCount: this.state.inpInsertPosCount + 1
+        })
+        textArea.selectionStart = startPos + textToInsert.length;
+        textArea.selectionEnd = startPos + textToInsert.length;
+        textArea.focus();
+    }
+    setDefault = () => {
+        this.setState({
+            inpDialog: "",
+            inpInsertPosCount: 1
+        })
     }
     render() {
         return (
@@ -266,11 +270,10 @@ export default class Helper extends Component {
                                     : ""
                             }
                             <div className="row gap-3 mt-4">
-                                <textarea name="inpDialog" id="textIn" cols="30" rows="10" placeholder="Enter the structure eg.:
-                                h3 
-                                p 
-                                p" value={this.state.inpDialog} onChange={(e) => this.inpTxtHandler(e)} ></textarea>
+                                <textarea name="inpDialog" id="textIn" cols="30" rows="10" placeholder="Enter the structure eg.:" value={this.state.inpDialog} onChange={(e) => this.inpTxtHandler(e)} ></textarea>
+                                <button className='col-md btn btn-success' onClick={this.addInsertPos}>Add input</button>
                                 <button className='col-md btn btn-success' onClick={this.createStructureFromTxt}>Done</button>
+                                <button className='col-md btn btn-danger' onClick={this.setDefault}>Clear</button>
                             </div>
                         </div>
                         : null
@@ -283,6 +286,13 @@ export default class Helper extends Component {
                         this.state.popShow ?
                             <div className="alert alert-success" role="alert">
                                 Text copied
+                            </div>
+                            : ""
+                    }
+                    {
+                        this.state.replShow ?
+                            <div className="alert alert-success" role="alert">
+                                Number of replacements : {this.state.NoOfReplacement}
                             </div>
                             : ""
                     }
