@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const DBConnection = async () => {
-    const DB_URI = "mongodb+srv://fileshareuser:filesharepass@flie-sharing.hnzq5lv.mongodb.net/"
+    const DB_URI = process.env.mongoDB_URI;
     try {
         await mongoose.connect(DB_URI, { useNewUrlParser: true })
         console.log("Database connected successfully");
