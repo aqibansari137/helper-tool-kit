@@ -93,8 +93,8 @@ export default class ClipBoard extends Component {
                 }
                 <div className="row gap-3">
                     <input type="text" className='col-md-8' name='inpTxt' onChange={this.inpTxtHandler} value={this.state.inpTxt} placeholder='Enter something you want to keep on clipbord' />
-                    <button className='col-sm btn btn-success' onClick={this.addClips}>Add</button>
-                    <button className='col-sm btn btn-danger' onClick={this.clearClip}>Clear</button>
+                    <button className='col-sm btn-grad' onClick={this.addClips}>Add</button>
+                    <button className='col-sm btn-grad btn-grad-red' onClick={this.clearClip}>Clear</button>
                 </div>
                 <div className="row my-3">
                     {

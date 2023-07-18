@@ -15,11 +15,11 @@ svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: #130838;
+  box-shadow: 0 0 36px 0 black;
   width: 62%;
   padding: 2em 3em;
   border: 1px solid;
-  box-shadow: 0 0 2px 0;
   border-radius: 10px;
 }
 .dialogBoxCross {
@@ -47,7 +47,119 @@ body #root {
   min-height: inherit;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-image: url(../../assets/peakpx.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  color: white;
 }
 body #root footer {
   margin-top: auto !important;
+}
+textarea,
+input {
+  background-color: rgba(255, 255, 255, 0.096) !important;
+  color: white !important;
+  border: 1px solid rgb(121, 120, 120);
+  border-radius: 5px;
+}
+footer,
+.navbar {
+  background-color: transparent !important;
+}
+
+textarea::placeholder,
+input::placeholder,
+.navbar .navbar-brand,
+.navbar .nav-link,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  color: white !important;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:active {
+  color: grey !important;
+}
+
+.btn-grad {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #3f2b6c 0,
+    #130838 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+.btn-grad:focus {
+  box-shadow: #11184e 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0b124b 0 -3px 0 inset;
+}
+
+.btn-grad:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0e1549 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.btn-grad:active {
+  box-shadow: #0c1556 0 3px 7px inset;
+  transform: translateY(2px);
+}
+.btn-grad-red {
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #8e2727 0,
+    #610e0e 100%
+  );
+}
+.btn-grad-red:active {
+  box-shadow: #560c0c 0 3px 7px inset;
+}
+.to-top {
+  box-shadow: 0 0 3px 0 #a38ac5;
+}
+.to-top:hover {
+  color: white;
+}
+.form-select {
+  color: white !important;
+  background-color: #130838 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }

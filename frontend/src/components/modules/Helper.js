@@ -232,7 +232,7 @@ export default class Helper extends Component {
             <div className='container container-fluid'>
                 <div className='row my-3 justify-content-space-between'>
                     <h2 className='col-md-9'>Clean your code + get a helping hand</h2>
-                    <button className="col-md-3 btn btn-success" data-bs-toggle="collapse" data-bs-target="#opContent" onClick={() => this.setState({ arrowRotate: !this.state.arrowRotate })}>Operations <Icon.CaretRightFill className={this.state.arrowRotate ? "rotateRight" : "arrow"} /></button>
+                    <button className="col-md-3 btn-grad" data-bs-toggle="collapse" data-bs-target="#opContent" onClick={() => this.setState({ arrowRotate: !this.state.arrowRotate })}>Operations <Icon.CaretRightFill className={this.state.arrowRotate ? "rotateRight" : "arrow"} /></button>
                 </div>
                 <div className='collapse navbar-collapse' id='opContent'>
                     {
@@ -243,19 +243,19 @@ export default class Helper extends Component {
                             : ""
                     }
                     <div className='row mb-3 gap-2'>
-                        <button className='col btn btn-success' onClick={this.removeNbspFunc}>Remove nbsp</button>
-                        <button className='col btn btn-success' onClick={() => this.setState({ showDialogBox: true })}>Convert txt to structure</button>
-                        <button className='col btn btn-success' onClick={this.createBullet}>Create Bullet point</button>
+                        <button className='col btn-grad' onClick={this.removeNbspFunc}>Remove nbsp</button>
+                        <button className='col btn-grad' onClick={() => this.setState({ showDialogBox: true })}>Convert txt to structure</button>
+                        <button className='col btn-grad' onClick={this.createBullet}>Create Bullet point</button>
                     </div>
                     <div className="row mb-3 gap-2">
                         <input type="text" className='col-md-8' onKeyUp={(e) => this.keyHandler(e, "rmtag")} placeholder='Enter the html tag to be added/removed eg: sup' name="rmtag" value={this.state.rmtag} onChange={(e) => this.inpTxtHandler(e)} id="" />
-                        <button className='col btn btn-success' onClick={this.addTags}>Add tags</button>
-                        <button className='col btn btn-success' onClick={this.removeTags}>Remove tags</button>
+                        <button className='col btn-grad' onClick={this.addTags}>Add tags</button>
+                        <button className='col btn-grad' onClick={this.removeTags}>Remove tags</button>
                     </div>
                     <div className="row mb-3 gap-2">
                         <input type="text" className='col-md' placeholder='Find' name="findStr" value={this.state.findStr} onChange={(e) => this.inpTxtHandler(e)} id="" />
                         <input type="text" className='col-md' placeholder='Replace' name="replStr" value={this.state.replStr} onChange={(e) => this.inpTxtHandler(e)} id="" />
-                        <button className='col-md btn btn-success' onClick={this.replaceStr}>Replace String</button>
+                        <button className='col-md btn-grad' onClick={this.replaceStr}>Replace String</button>
                     </div>
                 </div>
                 {
@@ -271,9 +271,9 @@ export default class Helper extends Component {
                             }
                             <div className="row gap-3 mt-4">
                                 <textarea name="inpDialog" id="textIn" cols="30" rows="10" placeholder="Enter the structure eg.:" value={this.state.inpDialog} onChange={(e) => this.inpTxtHandler(e)} ></textarea>
-                                <button className='col-md btn btn-success' onClick={this.addInsertPos}>Add input</button>
-                                <button className='col-md btn btn-success' onClick={this.createStructureFromTxt}>Done</button>
-                                <button className='col-md btn btn-danger' onClick={this.setDefault}>Clear</button>
+                                <button className='col-md btn-grad' onClick={this.addInsertPos}>Add input</button>
+                                <button className='col-md btn-grad' onClick={this.createStructureFromTxt}>Done</button>
+                                <button className='col-md btn-grad btn-grad-red' onClick={this.setDefault}>Clear</button>
                             </div>
                         </div>
                         : null

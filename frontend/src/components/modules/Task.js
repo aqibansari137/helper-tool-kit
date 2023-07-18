@@ -139,8 +139,8 @@ export default class Task extends Component {
                             : ""
                     }
                     <input className='col-sm-9' type="text" name="taskinp" onKeyUp={(e) => this.keyHandler(e, "inp")} placeholder="Enter the task" value={this.state.taskinp} onChange={(e) => this.handleInp(e)} />
-                    <button className='col btn btn-success' onClick={this.addTask}>Add</button>
-                    <button className='col btn btn-danger' onClick={this.clearTask}>Clear</button>
+                    <button className='col btn-grad' onClick={this.addTask}>Add</button>
+                    <button className='col btn-grad btn-grad-red' onClick={this.clearTask}>Clear</button>
                 </div>
                 {
                     this.state.taskList.length === 0 ? <h5 className="my-4 text-center">No Task Added</h5>

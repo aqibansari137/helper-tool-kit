@@ -4,10 +4,10 @@ import React, { Component } from 'react'
 export default class Footer extends Component {
     render() {
         return (
-            <footer className="text-muted py-3 mt-3 bg-light">
+            <footer className="py-3 mt-3">
                 <div className="container">
                     <p className="float-end mb-1">
-                        <a className='btn btn-light pt-0' onClick={() => document.documentElement.scrollTop = 0}>Back to top</a>
+                        <a className='btn-grad to-top pt-0' onClick={() => document.documentElement.scrollTop = 0}>Back to top</a>
                     </p>
                     <p className="mb-1">Made by Aqib</p>
                 </div>
