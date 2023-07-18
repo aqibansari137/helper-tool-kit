@@ -5,6 +5,18 @@ import { NavLink } from 'react-router-dom'
 import "../styles/Helper.css"
 
 export default class Header extends Component {
+    componentDidMount = () => {
+        const navLinks = document.querySelectorAll('.nav-item');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function handleClick() {
+                let navbar = document.querySelector(".navbar-toggler-icon");
+                if (window.innerWidth < 992) {
+                    navbar.click();
+                }
+            });
+        });
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
