@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const API_URL = "https://helper-tool-kit.onrender.com";
-const API_URL = "http://localhost:2716";
+const API_URL = "https://helper-tool-kit.onrender.com";
+// const API_URL = "http://localhost:2716"; // for local
 export const uploadingFile = async (file) => {
     try {
         let response = await axios.post(`${API_URL}/upload`, file);
