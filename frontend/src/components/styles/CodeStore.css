@@ -1,0 +1,77 @@
+.code-group {
+  position: relative;
+  border: 1px solid #fff;
+  padding: 1em;
+  padding-bottom: 2em;
+  border-radius: 5px;
+  background: #130838;
+  box-shadow: 0 0 36px 0 black;
+}
+.code-group h4 {
+  position: absolute;
+  top: -20px;
+  background: black;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+}
+.accordian-wrapper {
+  margin-top: 2em;
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+.accordian-question {
+  border-radius: 5px;
+  padding: 1em;
+  background: #2a3e57;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.4s;
+}
+.accordian-question::after {
+  content: "\276F";
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+}
+.accordian-question.active::after {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+.accordian-question p {
+  margin: 0;
+  cursor: pointer;
+}
+.textarea-actions {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.accordian-answer {
+  position: relative;
+  display: none;
+  border-top: 1px solid #fff;
+  user-select: none;
+}
+.accordian-answer textarea {
+  cursor: pointer;
+  width: 100%;
+  padding: 1em;
+  border: none;
+  height: 100%;
+}
+.accordian-answer textarea:focus {
+  outline: none;
+}
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+  transition: display 1s ease;
+}
