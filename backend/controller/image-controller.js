@@ -27,8 +27,14 @@ export const downloadImage = async (req, res) => {
     }
 }
 export const deleteAllImage = async (req, res) => {
+    let id = req.params.delId;
     try {
-        await File.findByIdAndDelete({ _id: req.params.delId });
+        if (id === "clearAll") {
+            await File.deleteMany({});
+        }
+        else {
+            await File.findByIdAndDelete({ _id: req.params.delId });
+        }
         res.status(200).json({ message: "Deleted" });
     } catch (error) {
         res.status(500).json({ error: error.message });
