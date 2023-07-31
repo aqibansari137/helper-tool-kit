@@ -5,8 +5,14 @@ import '../styles/CodeStore.css';
 export default function CodeStore() {
 
     const [apiStatus, setApiStatus] = useState("get");
+    const [copyStat, setCopyStat] = useState(false);
     const [filteredData, setFilteredData] = useState([]);
     const [formPopUp, setFormPopUp] = useState(false);
+    const [confirmPopUp, setConfirmPopUp] = useState({
+        stat: false,
+        action: '',
+        id: ''
+    });
     const [updating, setUpdating] = useState(false);
     const [currData, setCurrData] = useState({
         heading: "",
@@ -76,15 +82,6 @@ export default function CodeStore() {
             setApiStatus("update");
         }
         else {
-            // setMyData([
-            //     ...myData,
-            //     {
-            //         id: myData.length + 1,
-            //         heading: currData.heading,
-            //         code: currData.code,
-            //         category: currData.category,
-            //     }
-            // ]);
             let response = addCodeData({
                 heading: currData.heading,
                 code: currData.code,
@@ -102,12 +99,23 @@ export default function CodeStore() {
         setUpdating(true);
     }
     const deleteField = (id) => {
-        // let newData = myData.filter(item => item.id !== id);
         let resp = deleteCodeData(id);
         console.log(resp)
         setApiStatus("delete");
     }
-
+    const copyToClipboard = (copyData) => {
+        navigator.clipboard.writeText(copyData);
+        setCopyStat(true);
+        setTimeout(function () {
+            setCopyStat(false);
+        }, 1000)
+    }
+    const confirmCheck = () => {
+        if (confirmPopUp.action === "delete") {
+            deleteField(confirmPopUp.id);
+        }
+        setConfirmPopUp({ stat: false, action: '', id: '' })
+    }
 
     return (
         <div id='main-component' className='container-fluid'>
@@ -127,6 +135,14 @@ export default function CodeStore() {
                     </div>
                 </div> : null
             }
+            {
+                confirmPopUp.stat ? <div className='dialogBoxArea row gap-2 confirm-popUp' style={{ zIndex: '20', width: '30%' }}>
+                    <h3 className='col-12 text-center'>Are you sure?</h3>
+                    <button className='col btn-grad' id='confirmBtn' onClick={confirmCheck}>Confirm</button>
+                    <button className='col btn-grad btn-grad-red' onClick={() => setConfirmPopUp({ stat: false, action: '' })}>Cancel</button>
+                </div> : null
+            }
+
             <div className="main-content row">
                 <div className="code-group mt-5">
                     <h4>Work</h4>
@@ -139,8 +155,10 @@ export default function CodeStore() {
                                 <div className="accordian-answer">
                                     <textarea name="" id="" value={item.code} readOnly></textarea>
                                     <div className='textarea-actions'>
-                                        <Icon.PencilFill className='me-3' onClick={() => updateField(item)} />
-                                        <Icon.TrashFill onClick={() => deleteField(item._id)} />
+                                        <Icon.Clipboard2 onClick={() => copyToClipboard(item.code)} style={{ display: copyStat ? 'none' : 'inline-block' }} />
+                                        <Icon.Clipboard2CheckFill style={{ display: copyStat ? 'inline-block' : 'none', fontSize: '1.3em' }} />
+                                        <Icon.PencilFill className='mx-3' onClick={() => updateField(item)} />
+                                        <Icon.TrashFill onClick={() => setConfirmPopUp({ ...confirmPopUp, stat: true, action: 'delete', id: item._id })} />
                                     </div>
                                 </div>
                             </div>
