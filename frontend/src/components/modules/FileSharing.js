@@ -9,7 +9,7 @@ export default class FileSharing extends Component {
         this.state = {
             fileURL: '',
             downloadPath: '',
-            loaderShow: true
+            loaderShow: false
         }
     }
     componentDidMount = () => {
