@@ -14,6 +14,21 @@ export default class ClipBoard extends Component {
             listID: 1
         }
     }
+    componentDidUpdate = () => {
+        localStorage.setItem("ClipList", JSON.stringify({
+            listID: this.state.listID,
+            clipList: this.state.clipList
+        }))
+    }
+    componentDidMount = () => {
+        if (localStorage.getItem("ClipList") !== null) {
+            let data = JSON.parse(localStorage.getItem("ClipList"))
+            this.setState({
+                listID: data.listID,
+                clipList: data.clipList
+            })
+        }
+    }
     inpvalid = () => {
         if (this.state.inpTxt === '') {
             this.setState({

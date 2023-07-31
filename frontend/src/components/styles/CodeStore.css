@@ -45,6 +45,7 @@
 .accordian-question p {
   margin: 0;
   cursor: pointer;
+  color: #fff5ee;
 }
 .textarea-actions {
   position: absolute;
@@ -64,6 +65,7 @@
   padding: 1em;
   border: none;
   height: 100%;
+  color: #adefe3 !important;
 }
 .accordian-answer textarea:focus {
   outline: none;
