@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import * as Icon from 'react-bootstrap-icons';
 import { addCodeData, deleteCodeData, getCodeData, updateCodeData } from '../../services/api';
 import '../styles/CodeStore.css';
+import loaderGif from '../../assets/doggy.gif'
 export default function CodeStore() {
 
     const [apiStatus, setApiStatus] = useState("get");
     const [copyStat, setCopyStat] = useState(false);
+    const [loaderShow, setLoaderShow] = useState(false);
     const [filteredData, setFilteredData] = useState([]);
     const [formPopUp, setFormPopUp] = useState(false);
     const [confirmPopUp, setConfirmPopUp] = useState({
@@ -29,9 +31,11 @@ export default function CodeStore() {
 
     const getCodeApi = async () => {
         try {
+            setLoaderShow(true);
             let codeData = await getCodeData();
             setMyData(JSON.parse(codeData));
             setApiStatus("get");
+            setLoaderShow(false);
         } catch (error) {
             console.log(error.message)
         }
@@ -144,6 +148,12 @@ export default function CodeStore() {
             }
 
             <div className="main-content row">
+                {
+                    loaderShow ?
+                        <div className='text-center loaderScreen'>
+                            <img src={loaderGif} alt="loading" />
+                        </div> : null
+                }
                 <div className="code-group mt-5">
                     <h4>Work</h4>
                     {

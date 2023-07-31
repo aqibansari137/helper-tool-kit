@@ -9,7 +9,7 @@ export default class FileSharing extends Component {
         this.state = {
             fileURL: '',
             downloadPath: '',
-            loaderShow: false
+            loaderShow: true
         }
     }
     componentDidMount = () => {
@@ -66,6 +66,11 @@ export default class FileSharing extends Component {
     render() {
         return (
             <div className='fileshareBG'>
+                {
+                    this.state.loaderShow ? <div className='text-center loaderScreen'>
+                        <img src={loaderGif} alt="loading" />
+                    </div> : null
+                }
                 <div id='fileShare'>
                     <h1>File Sharing</h1>
                     <p>Upload any file and share the download link</p>
@@ -79,11 +84,7 @@ export default class FileSharing extends Component {
                                 <p>Link will valid for only 10 min</p>
                             </div> : null
                     }
-                    {
-                        this.state.loaderShow ? <div><img src={loaderGif} alt="loading.." /></div> : null
-                    }
                 </div>
-
             </div>
         )
     }
