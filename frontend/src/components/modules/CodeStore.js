@@ -42,13 +42,18 @@ export default function CodeStore() {
     }
 
     const searchFilter = (e) => {
-        let filterData = myData.filter(item => item.heading.includes(e.target.value));
+        let filterData = myData.filter(item => item.heading.toLowerCase().includes(e.target.value.toLowerCase()));
         setFilteredData(filterData);
     }
 
     const accordianFeature = (e) => {
         let accQue = e.target;
         let accAns = e.target.nextElementSibling;
+        setTimeout(function () {
+            document.getElementById(accQue.id).scrollIntoView({
+                behavior: 'smooth',
+            });
+        }, 200)
         accQue.classList.toggle("active");
         if (accAns.style.display === "block") {
             accQue.style.borderRadius = "5px";
@@ -157,9 +162,9 @@ export default function CodeStore() {
                 <div className="code-group mt-5">
                     <h4>Work</h4>
                     {
-                        filteredData ? filteredData?.map(item => {
+                        filteredData ? filteredData?.map((item, index) => {
                             return <div className="accordian-wrapper" key={item._id}>
-                                <div className="accordian-question" onClick={accordianFeature}>
+                                <div className="accordian-question" id={"head" + (index + 1)} onClick={accordianFeature}>
                                     <p>{item.heading}</p>
                                 </div>
                                 <div className="accordian-answer">
