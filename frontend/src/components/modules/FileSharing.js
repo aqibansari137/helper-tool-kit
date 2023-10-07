@@ -13,7 +13,10 @@ export default class FileSharing extends Component {
         }
     }
     componentDidMount = () => {
-        this.clearAll();
+        let timeNow = new Date();
+        if (timeNow.getDate === 1) {
+            this.clearAll();
+        }
     }
     componentDidUpdate = () => {
         let fileData = this.state.fileURL;
