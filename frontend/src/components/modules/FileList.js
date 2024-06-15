@@ -89,7 +89,7 @@ const FileList = forwardRef((props, ref) => {
                       className={`btn-grad ${
                         passcode[i] === "" ? "btn-disable" : ""
                       }`}
-                      href={`http://localhost:2716/downloads/${file._id}?passcode=${passcode[i]}`}
+                      href={`${process.env.REACT_APP_API_URL}/downloads/${file._id}?passcode=${passcode[i]}`}
                       download
                     >
                       Download
