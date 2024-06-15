@@ -1,53 +1,70 @@
-import axios from 'axios';
-const API_URL = "https://helper-tool-kit.onrender.com";
-// const API_URL = "http://localhost:2716"; // for local
-export const uploadingFile = async (file) => {
-    try {
-        let response = await axios.post(`${API_URL}/upload`, file);
-        return response.data;
-    }
-    catch (err) {
-        console.log("Error while calling api", err.message)
-    }
-}
-export const deletingFile = async (id) => {
-    try {
-        let response = await axios.get(`${API_URL}/delF/${id}`);
-        return response.data;
-    }
-    catch (err) {
-        console.log("Error while calling api", err.message)
-    }
-}
+import axios from "axios";
+// const API_URL = "https://helper-tool-kit.onrender.com";
+// const API_URL = "http://localhost:2716"; // for locals
+const API_URL = process.env.REACT_APP_API_URL;
+
 export const getCodeData = async () => {
-    try {
-        let response = await axios.get(`${API_URL}/getcodedata`);
-        return JSON.stringify(response.data);
-    } catch (error) {
-        console.log("Error while calling api", error.message)
-    }
-}
+  try {
+    let response = await axios.get(`${API_URL}/getcodedata`);
+    return JSON.stringify(response.data);
+  } catch (error) {
+    console.log("Error while calling api", error.message);
+  }
+};
 export const addCodeData = async (data) => {
-    try {
-        let response = await axios.post(`${API_URL}/addcodedata`, data);
-        return JSON.stringify(response.data);
-    } catch (error) {
-        console.log("Error while calling api", error.message)
-    }
-}
+  try {
+    let response = await axios.post(`${API_URL}/addcodedata`, data);
+    return JSON.stringify(response.data);
+  } catch (error) {
+    console.log("Error while calling api", error.message);
+  }
+};
 export const deleteCodeData = async (id) => {
-    try {
-        let response = await axios.delete(`${API_URL}/deletecodedata/${id}`);
-        return JSON.stringify(response.data);
-    } catch (error) {
-        console.log("Error while calling api", error.message)
-    }
-}
+  try {
+    let response = await axios.delete(`${API_URL}/deletecodedata/${id}`);
+    return JSON.stringify(response.data);
+  } catch (error) {
+    console.log("Error while calling api", error.message);
+  }
+};
 export const updateCodeData = async (id, data) => {
-    try {
-        let response = await axios.put(`${API_URL}/updatecodedata/${id}`, data);
-        return JSON.stringify(response.data);
-    } catch (error) {
-        console.log("Error while calling api", error.message)
-    }
-}
+  try {
+    let response = await axios.put(`${API_URL}/updatecodedata/${id}`, data);
+    return JSON.stringify(response.data);
+  } catch (error) {
+    console.log("Error while calling api", error.message);
+  }
+};
+
+export const uploadFIle = async (data) => {
+  try {
+    await axios.post(`${API_URL}/upload`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return "File uploaded successfully";
+    // Optionally clear the form or update state
+  } catch (err) {
+    console.error("Error uploading file", err);
+    return "Failed to upload file";
+  }
+};
+
+export const fetchUploadedFile = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/allFiles`);
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching files", err);
+  }
+};
+
+export const deleteUploadedFile = async () => {
+  try {
+    const res = await axios.delete(`${API_URL}/allFiles`);
+    console.log(res.data.msg); // Log success message
+  } catch (err) {
+    console.error("Error deleting files", err);
+  }
+};

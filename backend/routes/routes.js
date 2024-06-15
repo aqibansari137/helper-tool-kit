@@ -1,16 +1,29 @@
-import express from 'express'
-import { uploadImage, downloadImage, deleteAllImage } from '../controller/image-controller.js';
-import { getCode, addCode, deleteCode, updateCode } from '../controller/code-controller.js';
-import upload from '../utils/upload.js';
+import express from "express";
+import {
+  getCode,
+  addCode,
+  deleteCode,
+  updateCode,
+} from "../controller/code-controller.js";
+import {
+  uploadImage,
+  getAllFiles,
+  downloadUploadedFiles,
+  deleteUploadedFiles,
+} from "../controller/fileupload-controller.js";
+// import upload from '../utils/upload.js';
+
 const router = express.Router();
 
-router.post('/upload', upload.single('file'), uploadImage);
-router.get('/file/:fileId', downloadImage);
-router.get('/delF/:delId', deleteAllImage);
+router.get("/getcodedata", getCode);
+router.post("/addcodedata", addCode);
+router.delete("/deletecodedata/:id", deleteCode);
+router.put("/updatecodedata/:id", updateCode);
 
-router.get('/getcodedata', getCode);
-router.post('/addcodedata', addCode);
-router.delete('/deletecodedata/:id', deleteCode);
-router.put('/updatecodedata/:id', updateCode);
+//Upload a file
+router.post("/upload", uploadImage);
+router.get("/allFiles", getAllFiles);
+router.get("/downloads/:id", downloadUploadedFiles);
+router.delete("/allFiles", deleteUploadedFiles);
 
 export default router;
