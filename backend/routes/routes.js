@@ -11,7 +11,6 @@ import {
   downloadUploadedFiles,
   deleteUploadedFiles,
 } from "../controller/fileupload-controller.js";
-// import upload from '../utils/upload.js';
 
 const router = express.Router();
 

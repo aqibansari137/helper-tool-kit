@@ -12,14 +12,14 @@
         background-color: rgba(255, 255, 255, 0.096);
         padding: 15px 10px;
         
-        @media (min-width:600px){
+        @media (min-width:768px){
             padding: 20px 15px;
         }
 
         .form-content{
             width: 100%;
             
-            @media (min-width:600px){
+            @media (min-width:768px){
                 width: 600px;
             }
 
@@ -27,7 +27,7 @@
                 display: grid;
                 grid-template-columns: 1fr;
                 
-                @media (min-width:600px){
+                @media (min-width:768px){
                     grid-template-columns: 1fr 2fr;
                 }
             }
@@ -52,6 +52,21 @@
             color: #fff;
         }
 
+        input{
+            width: 100%;
+            border: none;
+            background: transparent !important;
+            border-radius: 0;
+            border-bottom: 1px solid #fff;
+            outline: 0;
+            
+            &.searchbox{
+                background-color: rgba(255, 255, 255, 0.159) !important;
+                backdrop-filter: blur(5px);
+                padding-left: 10px;
+            }
+        }
+
         .btn-disable{
             pointer-events: none;
             background-color: darkgray;
@@ -63,15 +78,16 @@
             display: none;
         }
         
-        @media (min-width:600px){
+        @media (min-width:768px){
             padding: 20px 15px;
         }
 
         table {
             width: 100%;
+            margin-top: 10px;
             border-collapse: collapse;
             
-            @media (min-width:600px){
+            @media (min-width:768px){
                 box-shadow: 0 0 5px 0 #000;
             }
         }
@@ -90,15 +106,6 @@
             &:first-child{
                 border-left: none;
             }
-
-            input{
-                width: 100%;
-                border: none;
-                background: transparent !important;
-                border-radius: 0;
-                border-bottom: 1px solid #fff;
-                outline: 0;
-            }
         }
 
         tr:last-child{
@@ -107,7 +114,7 @@
             }
         }
         
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 768px) {
             table {
                 border: 0;
             }

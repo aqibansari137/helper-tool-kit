@@ -20,6 +20,14 @@ const upload = multer({
   limits: { fileSize: 50000000 }, // 50MB limit
 }).single("file");
 
+const encryptPassword = (password) => {
+  let encryptedPassword = "";
+  for (let i = 0; i < password.length; i++) {
+    encryptedPassword += String.fromCharCode(password.charCodeAt(i) + i);
+  }
+  return encryptedPassword;
+};
+
 // @route   POST /upload
 // @desc    Upload a file
 export const uploadImage = async (req, res) => {
@@ -30,10 +38,12 @@ export const uploadImage = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ msg: "No file uploaded" });
     }
-    const { passcode } = req.body;
+    let { passcode } = req.body;
     if (!passcode) {
       return res.status(400).json({ msg: "Passcode is required" });
     }
+
+    passcode = encryptPassword(passcode);
 
     const newFile = new File({
       filename: req.file.filename,
@@ -60,7 +70,9 @@ export const getAllFiles = async (req, res) => {
 export const downloadUploadedFiles = async (req, res) => {
   try {
     const { id } = req.params;
-    const { passcode } = req.query;
+    let { passcode } = req.query;
+
+    passcode = encryptPassword(passcode);
 
     const file = await File.findById(id);
     if (!file) {
