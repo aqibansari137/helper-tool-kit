@@ -3,6 +3,7 @@ import React, {
   useState,
   forwardRef,
   useImperativeHandle,
+  useCallback 
 } from "react";
 import { deleteUploadedFile, fetchUploadedFile } from "../../services/api";
 import axios from "axios";
@@ -13,11 +14,7 @@ const FileList = forwardRef((props, ref) => {
   const [searchTxt, setSearchTxt] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
-    fetchFiles();
-  }, []);
-
-  const fetchFiles = async () => {
+  const fetchFiles = useCallback(async () => {
     let response = await fetchUploadedFile();
     if (response) {
       response.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -25,7 +22,11 @@ const FileList = forwardRef((props, ref) => {
       setFilteredData(response);
       settingPasscodeArr(response.length);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchFiles();
+  }, [fetchFiles]);
 
   useImperativeHandle(ref, () => ({
     fetchFiles,

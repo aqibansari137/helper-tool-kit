@@ -8,10 +8,11 @@ import "firebase/compat/storage";
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [passcode, setPasscode] = useState("");
-  const [aletMsg, setAlertMsg] = useState({
+  const [alertMsg, setAlertMsg] = useState({
     message:"",
     type:"alert-primary"
   });
+  const uploadRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -67,6 +68,10 @@ const FileUpload = () => {
     
         let response = await uploadFIle(fileData);
         showAlertMsg(response,"alert-success");
+        if(uploadRef.current){
+          uploadRef.current.value = "";
+        }
+        setPasscode("");
         triggerChildFunction();
       });
     });    
@@ -74,9 +79,9 @@ const FileUpload = () => {
 
   return (
     <div className="file-upload-container">
-      {aletMsg.message !== "" && (
-        <div className={`alert ${aletMsg.type}`} role="alert">
-          {aletMsg.message}
+      {alertMsg.message !== "" && (
+        <div className={`alert ${alertMsg.type}`} role="alert">
+          {alertMsg.message}
         </div>
       )}
       <h1 className="text-center">File Sharing</h1>
@@ -85,7 +90,7 @@ const FileUpload = () => {
         <div className="form-content">
           <div>
             <label htmlFor="file">Choose a file :</label>
-            <input type="file" id="file" onChange={handleFileChange} />
+            <input type="file" ref={uploadRef} id="file" onChange={handleFileChange} />
           </div>
           <div>
             <label htmlFor="passcode">Enter passcode :</label>
