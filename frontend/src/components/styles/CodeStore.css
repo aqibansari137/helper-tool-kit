@@ -78,19 +78,7 @@
   display: block;
   transition: display 1s ease;
 }
-.loaderScreen {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 @media screen and (max-width: 600px) {
   .confirm-popUp {
     width: 60% !important;

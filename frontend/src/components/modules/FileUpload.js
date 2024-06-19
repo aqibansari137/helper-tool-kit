@@ -5,7 +5,7 @@ import "../styles/FileUpload.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 
-const FileUpload = () => {
+const FileUpload = ({setLoaderShow}) => {
   const [file, setFile] = useState(null);
   const [passcode, setPasscode] = useState("");
   const [alertMsg, setAlertMsg] = useState({
@@ -47,6 +47,7 @@ const FileUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoaderShow(true);
 
     if (!file) {
       showAlertMsg("Please select a file","alert-primary");
@@ -72,6 +73,7 @@ const FileUpload = () => {
           uploadRef.current.value = "";
         }
         setPasscode("");
+        setLoaderShow(false);
         triggerChildFunction();
       });
     });    
@@ -105,7 +107,7 @@ const FileUpload = () => {
           <button type="submit btn-grad">Upload</button>
         </div>
       </form>
-      <FileList ref={childRef} showAlertMsg={showAlertMsg} />
+      <FileList ref={childRef} showAlertMsg={showAlertMsg} setLoaderShow={setLoaderShow} />
     </div>
   );
 };

@@ -15,12 +15,14 @@ const FileList = forwardRef((props, ref) => {
   const [filteredData, setFilteredData] = useState([]);
 
   const fetchFiles = useCallback(async () => {
+    props.setLoaderShow(true);
     let response = await fetchUploadedFile();
     if (response) {
       response.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFiles(response);
       setFilteredData(response);
       settingPasscodeArr(response.length);
+      props.setLoaderShow(false);
     }
   }, []);
 
