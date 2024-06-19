@@ -108,6 +108,10 @@
             }
         }
 
+        td:last-child{
+            text-align: center;
+        }
+
         tr:last-child{
             td{
                 border-bottom: none;
@@ -135,6 +139,10 @@
                 font-size: 13px;
                 border: none;
                 position: relative;
+
+                &:last-child{
+                    text-align: left;
+                }
             }
         
             td::before {

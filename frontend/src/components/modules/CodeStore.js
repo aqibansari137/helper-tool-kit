@@ -25,11 +25,13 @@ export default function CodeStore() {
     code: "",
     category: "",
   });
+
   const [myData, setMyData] = useState([]);
   useEffect(() => {
     getCodeApi();
   }, [apiStatus]);
   useEffect(() => {
+    myData.sort((a, b) => a.heading.localeCompare(b.heading));
     setFilteredData(myData);
   }, [myData]);
 
@@ -76,6 +78,7 @@ export default function CodeStore() {
       [e.target.name]: e.target.value,
     });
   };
+
   const clearCurrInput = () => {
     setCurrData({
       heading: "",
@@ -84,10 +87,12 @@ export default function CodeStore() {
     });
     setUpdating(false);
   };
+
   const closeDialogBox = () => {
     setFormPopUp(false);
     clearCurrInput();
   };
+
   const handleSubmit = () => {
     if (updating) {
       console.log("updating");
@@ -97,6 +102,7 @@ export default function CodeStore() {
       setFormPopUp(false);
       setApiStatus("update");
     } else {
+      clearCurrInput();
       let response = addCodeData({
         heading: currData.heading,
         code: currData.code,
@@ -104,20 +110,22 @@ export default function CodeStore() {
       });
       console.log(response);
       setFormPopUp(false);
-      clearCurrInput();
       setApiStatus("post");
     }
   };
+
   const updateField = (item) => {
     setCurrData(item);
     setFormPopUp(true);
     setUpdating(true);
   };
+
   const deleteField = (id) => {
     let resp = deleteCodeData(id);
     console.log(resp);
     setApiStatus("delete");
   };
+
   const copyToClipboard = (copyData) => {
     navigator.clipboard.writeText(copyData);
     setCopyStat(true);
@@ -125,6 +133,7 @@ export default function CodeStore() {
       setCopyStat(false);
     }, 1000);
   };
+
   const confirmCheck = () => {
     if (confirmPopUp.action === "delete") {
       deleteField(confirmPopUp.id);

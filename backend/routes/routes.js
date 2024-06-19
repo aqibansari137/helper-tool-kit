@@ -6,7 +6,7 @@ import {
   updateCode,
 } from "../controller/code-controller.js";
 import {
-  uploadImage,
+  uploadFile,
   getAllFiles,
   downloadUploadedFiles,
   deleteUploadedFiles,
@@ -20,7 +20,7 @@ router.delete("/deletecodedata/:id", deleteCode);
 router.put("/updatecodedata/:id", updateCode);
 
 //Upload a file
-router.post("/upload", uploadImage);
+router.post("/upload", uploadFile);
 router.get("/allFiles", getAllFiles);
 router.get("/downloads/:id", downloadUploadedFiles);
 router.delete("/allFiles", deleteUploadedFiles);

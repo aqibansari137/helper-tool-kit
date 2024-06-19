@@ -2,14 +2,20 @@ import React, { useState, useRef } from "react";
 import FileList from "./FileList";
 import { uploadFIle } from "../../services/api";
 import "../styles/FileUpload.css";
+import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [passcode, setPasscode] = useState("");
-  const [message, setMessage] = useState("");
+  const [aletMsg, setAlertMsg] = useState({
+    message:"",
+    type:"alert-primary"
+  });
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   const childRef = useRef();
@@ -25,35 +31,55 @@ const FileUpload = () => {
     setPasscode(e.target.value);
   };
 
+  const showAlertMsg = (msg,type) =>{
+    setAlertMsg({
+      message:msg,
+      type:type
+    });
+    setTimeout(()=>{
+      setAlertMsg({
+        message:"",
+        type:"alert-primary"
+      });
+    },2000);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setTimeout(() => {
-      setMessage("");
-      setFile(null);
-      setPasscode("");
-    }, 2000);
 
     if (!file) {
-      setMessage("Please select a file");
+      showAlertMsg("Please select a file","alert-primary");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("passcode", passcode);
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(file.name);
 
-    let response = await uploadFIle(formData);
-    setMessage(response);
-    triggerChildFunction();
+    fileRef.put(file).then((snapshot) => {
+      snapshot.ref.getDownloadURL().then(async (downloadUrl) => {
+
+        const fileData = {
+          name: file.name,
+          size: file.size,
+          downloadUrl: downloadUrl,
+          passcode:passcode
+        };
+    
+        let response = await uploadFIle(fileData);
+        showAlertMsg(response,"alert-success");
+        triggerChildFunction();
+      });
+    });    
   };
 
   return (
     <div className="file-upload-container">
-      {message !== "" && (
-        <div className="alert alert-primary" role="alert">
-          {message}
+      {aletMsg.message !== "" && (
+        <div className={`alert ${aletMsg.type}`} role="alert">
+          {aletMsg.message}
         </div>
       )}
+      <h1 className="text-center">File Sharing</h1>
       <h2>Upload a File</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-content">
@@ -74,7 +100,7 @@ const FileUpload = () => {
           <button type="submit btn-grad">Upload</button>
         </div>
       </form>
-      <FileList ref={childRef} />
+      <FileList ref={childRef} showAlertMsg={showAlertMsg} />
     </div>
   );
 };

@@ -1,65 +1,36 @@
-import multer from "multer";
-import path from "path";
 import File from "../models/files.js";
-import fs from "fs";
-
-// Set storage engine
-const storage = multer.diskStorage({
-  destination: "./uploads/",
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
-});
-
-// Init upload
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 50000000 }, // 50MB limit
-}).single("file");
-
-const encryptPassword = (password) => {
-  let encryptedPassword = "";
-  for (let i = 0; i < password.length; i++) {
-    encryptedPassword += String.fromCharCode(password.charCodeAt(i) + i);
-  }
-  return encryptedPassword;
-};
-
 // @route   POST /upload
 // @desc    Upload a file
-export const uploadImage = async (req, res) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ msg: err.message });
-    }
-    if (!req.file) {
-      return res.status(400).json({ msg: "No file uploaded" });
-    }
+export const uploadFile = async (req, res) => {
+  try {
     let { passcode } = req.body;
     if (!passcode) {
       return res.status(400).json({ msg: "Passcode is required" });
     }
 
-    passcode = encryptPassword(passcode);
-
     const newFile = new File({
-      filename: req.file.filename,
-      originalName: req.file.originalname,
-      path: req.file.path,
-      size: req.file.size,
+      originalName: req.body.name,
+      path: req.body.downloadUrl,
+      size: req.body.size,
       passcode: passcode,
     });
     await newFile.save();
-    res.json(newFile);
-  });
+    res.json({ name: newFile.originalName, size: newFile.size });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 };
 
 export const getAllFiles = async (req, res) => {
   try {
-    const files = await File.find();
+    let files = await File.find();
+    files = files.map(({ _id, size, date, originalName }) => ({
+      _id,
+      size,
+      date,
+      originalName,
+    }));
     res.json(files);
   } catch (err) {
     console.error(err.message);
@@ -72,8 +43,6 @@ export const downloadUploadedFiles = async (req, res) => {
     const { id } = req.params;
     let { passcode } = req.query;
 
-    passcode = encryptPassword(passcode);
-
     const file = await File.findById(id);
     if (!file) {
       return res.status(404).json({ msg: "File not found" });
@@ -84,14 +53,9 @@ export const downloadUploadedFiles = async (req, res) => {
     }
 
     // Use res.download to send the file with the original filename
-    res.download(file.path, file.originalName, (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Server Error");
-      }
-    });
+    res.status(200).json({name:file.originalName ,url:file.path});
   } catch (err) {
-    console.error(err.message);
+    console.error("Unexpected error occurred:", err.message);
     res.status(500).send("Server Error");
   }
 };
@@ -101,25 +65,6 @@ export const deleteUploadedFiles = async (req, res) => {
     // Delete all files from the database
     const deletedFiles = await File.deleteMany({});
     console.log(`Deleted ${deletedFiles.deletedCount} files from database`);
-
-    // Remove all files from the uploads folder
-    fs.readdir("./uploads", (err, files) => {
-      if (err) {
-        console.error("Error reading uploads directory", err);
-        return res.status(500).send("Server Error");
-      }
-
-      for (const file of files) {
-        fs.unlink(path.join("./uploads", file), (err) => {
-          if (err) {
-            console.error(`Error deleting file ${file}`, err);
-          }
-        });
-      }
-
-      console.log(`Deleted ${files.length} files from uploads folder`);
-      res.json({ msg: "All files deleted successfully" });
-    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

@@ -5,12 +5,13 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { deleteUploadedFile, fetchUploadedFile } from "../../services/api";
+import axios from "axios";
 
 const FileList = forwardRef((props, ref) => {
   const [files, setFiles] = useState([]);
   const [passcode, setPasscode] = useState("");
   const [searchTxt, setSearchTxt] = useState("");
-  const [filteredData,setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     fetchFiles();
@@ -19,10 +20,10 @@ const FileList = forwardRef((props, ref) => {
   const fetchFiles = async () => {
     let response = await fetchUploadedFile();
     if (response) {
+      response.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFiles(response);
       setFilteredData(response);
-      let arr = Array(response.length).fill("");
-      setPasscode(arr);
+      settingPasscodeArr(response.length);
     }
   };
 
@@ -55,13 +56,38 @@ const FileList = forwardRef((props, ref) => {
     }
   };
 
-  const searchByText = (text) =>{
-    setSearchTxt(text);
-    const searchResult = files.filter(item=>item.originalName.toLowerCase().includes(text.toLowerCase()));
-    setFilteredData(searchResult)
-    let arr = Array(searchResult.length).fill("");
+  const settingPasscodeArr = (len) => {
+    let arr = Array(len).fill("");
     setPasscode(arr);
   }
+
+  const searchByText = (text) => {
+    setSearchTxt(text);
+    const searchResult = files.filter((item) =>
+      item.originalName.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredData(searchResult);
+    settingPasscodeArr(searchResult.length);
+  };
+
+  const downloadFileById = async (id, passcode) => {
+    try {
+      const resp = await axios.get(
+        `${process.env.REACT_APP_API_URL}/downloads/${id}?passcode=${passcode}`
+      );
+      const link = document.createElement("a");
+      link.href = resp.data.url;
+      link.target = "_blank";
+      link.download = resp.data.name; // You can specify a default filename here if you want
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      settingPasscodeArr(filteredData.length);
+    } catch (err) {
+      console.log(err);
+      props.showAlertMsg(err.response.data.msg,"alert-danger");
+    }
+  };
 
   return (
     <div>
@@ -72,7 +98,13 @@ const FileList = forwardRef((props, ref) => {
         </button>
         {files.length !== 0 ? (
           <>
-            <input type="text" className="searchbox" value={searchTxt} onChange={(e)=>searchByText(e.target.value)} placeholder="Type to Search..."/>
+            <input
+              type="text"
+              className="searchbox"
+              value={searchTxt}
+              onChange={(e) => searchByText(e.target.value)}
+              placeholder="Type to Search..."
+            />
             <table>
               <thead>
                 <tr>
@@ -98,15 +130,14 @@ const FileList = forwardRef((props, ref) => {
                       />
                     </td>
                     <td>
-                      <a
+                      <button
                         className={`btn-grad ${
                           passcode[i] === "" ? "btn-disable" : ""
                         }`}
-                        href={`${process.env.REACT_APP_API_URL}/downloads/${file._id}?passcode=${passcode[i]}`}
-                        download
+                        onClick={() => downloadFileById(file._id, passcode[i])}
                       >
                         Download
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}

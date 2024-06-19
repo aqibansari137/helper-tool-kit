@@ -38,11 +38,7 @@ export const updateCodeData = async (id, data) => {
 
 export const uploadFIle = async (data) => {
   try {
-    await axios.post(`${API_URL}/upload`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    await axios.post(`${API_URL}/upload`, data);
     return "File uploaded successfully";
     // Optionally clear the form or update state
   } catch (err) {
