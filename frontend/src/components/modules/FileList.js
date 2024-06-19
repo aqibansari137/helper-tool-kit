@@ -8,24 +8,25 @@ import React, {
 import { deleteUploadedFile, fetchUploadedFile } from "../../services/api";
 import axios from "axios";
 
-const FileList = forwardRef((props, ref) => {
+const FileList = forwardRef(({setLoaderShow,showAlertMsg}, ref) => {
   const [files, setFiles] = useState([]);
   const [passcode, setPasscode] = useState("");
   const [searchTxt, setSearchTxt] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
+
   const fetchFiles = useCallback(async () => {
-    props.setLoaderShow(true);
+    setLoaderShow(true);
     let response = await fetchUploadedFile();
     if (response) {
       response.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFiles(response);
       setFilteredData(response);
       settingPasscodeArr(response.length);
-      props.setLoaderShow(false);
+      setLoaderShow(false);
     }
-  }, []);
-
+  }, [setLoaderShow]);
+  
   useEffect(() => {
     fetchFiles();
   }, [fetchFiles]);
@@ -33,6 +34,8 @@ const FileList = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     fetchFiles,
   }));
+
+  
 
   const handleDeleteAllFiles = async () => {
     await deleteUploadedFile();
@@ -88,7 +91,7 @@ const FileList = forwardRef((props, ref) => {
       settingPasscodeArr(filteredData.length);
     } catch (err) {
       console.log(err);
-      props.showAlertMsg(err.response.data.msg,"alert-danger");
+      showAlertMsg(err.response.data.msg,"alert-danger");
     }
   };
 

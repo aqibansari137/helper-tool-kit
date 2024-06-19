@@ -37,6 +37,10 @@ const FileUpload = ({setLoaderShow}) => {
       message:msg,
       type:type
     });
+    document.getElementById("root").scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
     setTimeout(()=>{
       setAlertMsg({
         message:"",

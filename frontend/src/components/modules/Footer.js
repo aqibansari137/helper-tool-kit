@@ -9,7 +9,12 @@ export default class Footer extends Component {
           <p className="float-end mb-1">
             <a
               className="btn-grad to-top pt-0"
-              onClick={() => (document.getElementById("root").scrollTop = 0)}
+              onClick={() =>
+                document.getElementById("root").scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                })
+              }
             >
               Back to top
             </a>
