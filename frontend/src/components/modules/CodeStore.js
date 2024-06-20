@@ -95,23 +95,20 @@ export default function CodeStore() {
 
   const handleSubmit = () => {
     if (updating) {
-      console.log("updating");
-      let response = updateCodeData(currData._id, currData);
-      console.log(response);
+      updateCodeData(currData._id, currData);
       setUpdating(false);
       setFormPopUp(false);
       setApiStatus("update");
     } else {
-      clearCurrInput();
-      let response = addCodeData({
+      addCodeData({
         heading: currData.heading,
         code: currData.code,
         category: currData.category,
       });
-      console.log(response);
       setFormPopUp(false);
       setApiStatus("post");
     }
+    clearCurrInput();
   };
 
   const updateField = (item) => {
@@ -121,8 +118,7 @@ export default function CodeStore() {
   };
 
   const deleteField = (id) => {
-    let resp = deleteCodeData(id);
-    console.log(resp);
+    deleteCodeData(id);
     setApiStatus("delete");
   };
 
