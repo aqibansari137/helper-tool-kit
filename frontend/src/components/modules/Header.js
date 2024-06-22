@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Logo from "../../assets/technical-support.png";
 import { NavLink } from "react-router-dom";
 import "../styles/Helper.css";
+import menuLink from "../../data/navigation.json";
 
 export default class Header extends Component {
   componentDidMount = () => {
@@ -44,34 +45,15 @@ export default class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink to={"/"} className="nav-link">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={"task"} className="nav-link">
-                  Task
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={"img-comp"} className="nav-link">
-                  Compress Image
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={"clip-board"} className="nav-link">
-                  Clip Board
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={"file-upload"} className="nav-link">
-                  File Sharing
-                </NavLink>
-              </li>
-              {/* <li className="nav-item">
-                                <NavLink to={'code-tip'} className="nav-link">Code Tips</NavLink>
-                            </li> */}
+              {menuLink.map((item, i) => {
+                return (
+                  <li className="nav-item" key={i}>
+                    <NavLink to={item.link} className="nav-link">
+                      {item.name}
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

@@ -1,0 +1,26 @@
+[
+    {
+        "name" : "Home",
+        "link" : "/"
+    },
+    {
+        "name" : "Task",
+        "link" : "/task"
+    },
+    {
+        "name" : "Compress Image",
+        "link" : "/img-comp"
+    },
+    {
+        "name" : "Clip Board",
+        "link" : "/clip-board"
+    },
+    {
+        "name" : "File Sharing",
+        "link" : "/file-upload"
+    },
+    {
+        "name" : "QR Generator",
+        "link" : "/qr-generate"
+    }
+]

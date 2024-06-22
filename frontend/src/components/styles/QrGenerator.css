@@ -1,0 +1,51 @@
+.container{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.qr-generator-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: column;
+    
+    @media (min-width:992px) {
+        flex-direction: row;
+    }
+
+    h2{
+        margin-top: 15px;
+    }
+
+    .hide-it{
+        visibility: hidden;
+    }
+
+    .code-image{
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+        background-color: #ffffff3d;
+        margin: 0 auto;
+        
+        @media (min-width:992px) {
+            width: 40%;
+        }
+    }
+    
+    .qr-content{
+        width: 100%;
+        
+        @media (min-width:992px) {
+            width: 60%;
+        }
+        input{
+            width: 100%;
+            margin: 15px 0;
+            padding: 5px 10px;
+        }
+
+        .btn-grad{
+            margin-right: 15px;
+        }
+    }
+}
