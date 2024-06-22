@@ -1,0 +1,35 @@
+.container{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.Not-found-container{
+    background-color: #00000042;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+
+    a:hover{
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .left-col{
+        position: relative;
+        text-align: center;
+        top:-25px;
+        .btn-grad{
+            margin-bottom: 15px;
+        }
+        @media (min-width:768px) {
+            top:-45px;
+        }
+    }
+    .right-col{
+        text-align: center;
+
+        img{
+            width: 100%;
+            max-width: 500px;
+        }
+    }
+}

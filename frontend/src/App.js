@@ -9,6 +9,8 @@ import ClipBoard from "./components/modules/ClipBoard";
 import CodeStore from "./components/modules/CodeStore";
 import FileUpload from "./components/modules/FileUpload";
 import loaderGif from "../src/assets/doggy.gif";
+import QRGenerator from "./components/modules/QRGenerator";
+import NotFound from "./components/modules/NotFound";
 
 const App = () => {
   const [loaderShow, setLoaderShow] = useState(false);
@@ -28,6 +30,8 @@ const App = () => {
             <Route path="code-store" element={<CodeStore />} />
             <Route path="clip-board" element={<ClipBoard />} />
             <Route path="file-upload" element={<FileUpload setLoaderShow={setLoaderShow} />} />
+            <Route path="qr-generate" element={<QRGenerator />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
