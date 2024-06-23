@@ -1,15 +1,12 @@
-.container{
-    margin-top: auto;
-    margin-bottom: auto;
-}
 .qr-generator-container{
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     flex-direction: column;
+    height: 100%;
     
     @media (min-width:992px) {
         flex-direction: row;
+        justify-content: space-between;
     }
 
     h2{
@@ -44,8 +41,14 @@
             padding: 5px 10px;
         }
 
-        .btn-grad{
-            margin-right: 15px;
+        .btn-container{
+            display: flex;
+            justify-content: space-between;
+            
+            @media (min-width:992px) {
+                justify-content: flex-start;
+                gap: 15px;
+            }
         }
     }
 }
