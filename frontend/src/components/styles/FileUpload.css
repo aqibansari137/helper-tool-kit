@@ -80,6 +80,7 @@
         
         @media (min-width:768px){
             padding: 20px 15px;
+            backdrop-filter: blur(3px);
         }
 
         table {

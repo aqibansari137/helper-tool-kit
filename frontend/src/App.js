@@ -14,29 +14,59 @@ import NotFound from "./components/modules/NotFound";
 
 const App = () => {
   const [loaderShow, setLoaderShow] = useState(false);
-    return (
-      <Router>
-        <Header />
-        <div className="container">
-        {loaderShow ? (
+  const [alertMsg, setAlertMsg] = useState({
+    message: "",
+    type: "alert-primary",
+  });
+
+  const showAlertMsg = (msg, type) => {
+    setAlertMsg({
+      message: msg,
+      type: type,
+    });
+    document.getElementById("root").scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    setTimeout(() => {
+      setAlertMsg({
+        message: "",
+        type: "alert-primary",
+      });
+    }, 2000);
+  };
+
+  return (
+    <Router>
+      <Header />
+      <div className="container">
+        {loaderShow && (
           <div className="text-center loaderScreen">
             <img src={loaderGif} alt="loading" />
           </div>
-        ) : null}
-          <Routes>
-            <Route path="/" element={<Helper />} />
-            <Route path="task" element={<Task />} />
-            <Route path="img-comp" element={<ImgComp />} />
-            <Route path="code-store" element={<CodeStore />} />
-            <Route path="clip-board" element={<ClipBoard />} />
-            <Route path="file-upload" element={<FileUpload setLoaderShow={setLoaderShow} />} />
-            <Route path="qr-generate" element={<QRGenerator />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-      </Router>
-    );
-}
+        )}
+        {alertMsg.message !== "" && (
+          <div className={`alert ${alertMsg.type}`} role="alert">
+            {alertMsg.message}
+          </div>
+        )}
+        <Routes>
+          <Route path="/" element={<Helper />} />
+          <Route path="task" element={<Task />} />
+          <Route path="img-comp" element={<ImgComp />} />
+          <Route path="code-store" element={<CodeStore />} />
+          <Route path="clip-board" element={<ClipBoard />} />
+          <Route
+            path="file-upload"
+            element={<FileUpload setLoaderShow={setLoaderShow} showAlertMsg={showAlertMsg} />}
+          />
+          <Route path="qr-generate" element={<QRGenerator showAlertMsg={showAlertMsg}/>}/>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <Footer />
+    </Router>
+  );
+};
 
 export default App;

@@ -11,7 +11,7 @@ export default function NotFound() {
         </div>
         <div className='left-col'>
             <h1>PAGE NOT FOUND</h1>
-            <p>Sorry the page you are looking for doesn't exist or has been removed</p>
+            <p><em>Sorry the page you are looking for doesn't exist or has been removed</em></p>
             <NavLink className="btn-grad" to={"/"}>Back to home</NavLink>
         </div>
     </div>
