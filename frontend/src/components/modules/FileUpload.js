@@ -4,7 +4,6 @@ import { uploadFIle } from "../../services/api";
 import "../styles/FileUpload.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
-import * as Icon from "react-bootstrap-icons";
 
 const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
   const [file, setFile] = useState(null);
