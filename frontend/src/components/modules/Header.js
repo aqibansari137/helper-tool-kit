@@ -46,13 +46,40 @@ export default class Header extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {menuLink.map((item, i) => {
-                return (
-                  <li className="nav-item" key={i}>
+                if(item.submenu && item.submenu.length > 0) {
+                  return <li className="nav-item dropdown" key={i}>
+                <a
+                  className="nav-link dropdown-toggle"
+                  href={item.link}
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {item.name}
+                </a>
+                <ul className="dropdown-menu">
+                  {
+                    item.submenu.map((subItem,ind)=>{
+                      return <li key={ind}>
+                      <a className="dropdown-item" href={subItem.link}>
+                        {subItem.name}
+                      </a>
+                    </li>
+                    })
+                  }
+                </ul>
+              </li>
+                }
+                else{
+
+                  return (
+                    <li className="nav-item" key={i}>
                     <NavLink to={item.link} className="nav-link">
                       {item.name}
                     </NavLink>
                   </li>
                 );
+              }
               })}
             </ul>
           </div>
