@@ -11,6 +11,7 @@ import FileUpload from "./components/modules/FileUpload";
 import loaderGif from "../src/assets/doggy.gif";
 import QRGenerator from "./components/modules/QRGenerator";
 import NotFound from "./components/modules/NotFound";
+import Hangman from "./components/modules/Hangman";
 
 const App = () => {
   const [loaderShow, setLoaderShow] = useState(false);
@@ -61,6 +62,7 @@ const App = () => {
             element={<FileUpload setLoaderShow={setLoaderShow} showAlertMsg={showAlertMsg} />}
           />
           <Route path="qr-generate" element={<QRGenerator showAlertMsg={showAlertMsg}/>}/>
+          <Route path="hangman" element={<Hangman />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

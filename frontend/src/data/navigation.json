@@ -12,6 +12,10 @@
         "link" : "/img-comp"
     },
     {
+        "name" : "Hangman",
+        "link" : "/hangman"
+    },
+    {
         "name" : "Clip Board",
         "link" : "/clip-board"
     },
