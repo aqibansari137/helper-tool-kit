@@ -1,62 +1,252 @@
 [
     {
         "level": 1,
+        "category": "fruit",
         "word": "apple"
     },
     {
         "level": 2,
+        "category": "fruit",
         "word": "banana"
     },
     {
         "level": 3,
+        "category": "vegetable",
         "word": "carrot"
     },
     {
         "level": 4,
+        "category": "animal",
         "word": "dog"
     },
     {
         "level": 5,
-        "word": "elephant"
+        "category": "animal",
+        "word": "cat"
     },
     {
         "level": 6,
-        "word": "bicycle"
+        "category": "fruit",
+        "word": "grape"
     },
     {
         "level": 7,
-        "word": "dolphin"
+        "category": "vegetable",
+        "word": "onion"
     },
     {
         "level": 8,
-        "word": "guitar"
+        "category": "color",
+        "word": "blue"
     },
     {
         "level": 9,
-        "word": "hospital"
+        "category": "animal",
+        "word": "lion"
     },
     {
         "level": 10,
-        "word": "library"
+        "category": "fruit",
+        "word": "peach"
     },
     {
         "level": 11,
-        "word": "avalanche"
+        "category": "transport",
+        "word": "bicycle"
     },
     {
         "level": 12,
-        "word": "crocodile"
+        "category": "animal",
+        "word": "dolphin"
     },
     {
         "level": 13,
-        "word": "laboratory"
+        "category": "instrument",
+        "word": "guitar"
     },
     {
         "level": 14,
-        "word": "metamorphosis"
+        "category": "place",
+        "word": "hospital"
     },
     {
         "level": 15,
-        "word": "nighthawk"
+        "category": "place",
+        "word": "library"
+    },
+    {
+        "level": 16,
+        "category": "weather",
+        "word": "tornado"
+    },
+    {
+        "level": 17,
+        "category": "animal",
+        "word": "penguin"
+    },
+    {
+        "level": 18,
+        "category": "transport",
+        "word": "submarine"
+    },
+    {
+        "level": 19,
+        "category": "place",
+        "word": "observatory"
+    },
+    {
+        "level": 20,
+        "category": "animal",
+        "word": "giraffe"
+    },
+    {
+        "level": 21,
+        "category": "mythology",
+        "word": "phoenix"
+    },
+    {
+        "level": 22,
+        "category": "natural phenomenon",
+        "word": "rainbow"
+    },
+    {
+        "level": 23,
+        "category": "place",
+        "word": "castle"
+    },
+    {
+        "level": 24,
+        "category": "occupation",
+        "word": "astronaut"
+    },
+    {
+        "level": 25,
+        "category": "space",
+        "word": "galaxy"
+    },
+    {
+        "level": 26,
+        "category": "science",
+        "word": "photosynthesis"
+    },
+    {
+        "level": 27,
+        "category": "animal",
+        "word": "hippopotamus"
+    },
+    {
+        "level": 28,
+        "category": "ancient",
+        "word": "pterodactyl"
+    },
+    {
+        "level": 29,
+        "category": "space",
+        "word": "constellation"
+    },
+    {
+        "level": 30,
+        "category": "geography",
+        "word": "archipelago"
+    },
+    {
+        "level": 31,
+        "category": "animal",
+        "word": "kangaroo"
+    },
+    {
+        "level": 32,
+        "category": "animal",
+        "word": "elephant"
+    },
+    {
+        "level": 33,
+        "category": "vegetable",
+        "word": "cucumber"
+    },
+    {
+        "level": 34,
+        "category": "vegetable",
+        "word": "broccoli"
+    },
+    {
+        "level": 35,
+        "category": "animal",
+        "word": "rhinoceros"
+    },
+    {
+        "level": 36,
+        "category": "transport",
+        "word": "airplane"
+    },
+    {
+        "level": 37,
+        "category": "natural disaster",
+        "word": "earthquake"
+    },
+    {
+        "level": 38,
+        "category": "place",
+        "word": "university"
+    },
+    {
+        "level": 39,
+        "category": "place",
+        "word": "museum"
+    },
+    {
+        "level": 40,
+        "category": "science",
+        "word": "gravity"
+    },
+    {
+        "level": 41,
+        "category": "space",
+        "word": "asteroid"
+    },
+    {
+        "level": 42,
+        "category": "natural phenomenon",
+        "word": "eclipse"
+    },
+    {
+        "level": 43,
+        "category": "mythology",
+        "word": "unicorn"
+    },
+    {
+        "level": 44,
+        "category": "mythology",
+        "word": "cyclops"
+    },
+    {
+        "level": 45,
+        "category": "geography",
+        "word": "peninsula"
+    },
+    {
+        "level": 46,
+        "category": "geography",
+        "word": "volcano"
+    },
+    {
+        "level": 47,
+        "category": "animal",
+        "word": "chameleon"
+    },
+    {
+        "level": 48,
+        "category": "instrument",
+        "word": "xylophone"
+    },
+    {
+        "level": 49,
+        "category": "science",
+        "word": "neuroscience"
+    },
+    {
+        "level": 50,
+        "category": "science",
+        "word": "bioluminescence"
     }
 ]

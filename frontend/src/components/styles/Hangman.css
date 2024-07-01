@@ -64,6 +64,13 @@
     }
 }
 
+.hangman-menu{
+  background-color: #ffffff1a;
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  padding: 20px 0 30px;
+}
+
 .hangman-container {
   background-color: #ffffff1a;
   backdrop-filter: blur(3px);
@@ -71,12 +78,39 @@
   padding: 20px 0 30px;
 
   .hangman-display {
+    height: 400px;
+
+    .word-category{
+      position: relative;
+      bottom: 30px;
+      margin: 0;
+      font-size: 20px;
+      color: burlywood;
+      text-shadow: 2px 2px 8px black;
+      text-transform: capitalize;
+
+      span{
+        color: yellowgreen;
+        margin-right: 50px;
+        margin-left: 10px;
+        
+        @media (min-width: 768px) {
+          margin-left: -50px;
+        }
+      }
+    }
+
     .hangman-poll {
       background-image: url("../../assets/hanged-eight.png");
       width: 100%;
-      height: 400px;
+      height: 100%;
       background-repeat: no-repeat;
       background-position: center;
+      background-position-x: 44%;
+      
+      @media (min-width: 768px) {
+        background-position-x: center;
+      }
 
       &.hang-1 {
         background-image: url("../../assets/hanged-seven.png");
