@@ -1,23 +1,20 @@
 import React, { useState, useRef } from "react";
 import FileList from "./FileList";
 import { uploadFIle } from "../../services/api";
-import "../styles/FileUpload.css";
-import firebase from "firebase/compat/app";
-import "firebase/compat/storage";
+import "../styles/FileUpload.scss";
+import { storage } from "../../firebase";
 
 const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
   const [file, setFile] = useState(null);
   const [passcode, setPasscode] = useState("");
   const uploadRef = useRef(null);
+  const childRef = useRef();
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
   };
 
-  const childRef = useRef();
-
-  // Function to trigger the child's function
   const triggerChildFunction = () => {
     if (childRef.current) {
       childRef.current.fetchFiles();
@@ -35,11 +32,11 @@ const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
     if (!file) {
       showAlertMsg("Please select a file", "alert-primary");
     } else {
-      const storageRef = firebase.storage().ref();
+      const storageRef = storage.ref();
       const fileRef = storageRef.child(file.name);
 
-      fileRef.put(file).then((snapshot) => {
-        snapshot.ref.getDownloadURL().then(async (downloadUrl) => {
+      fileRef.put(file).then(() => {
+        fileRef.getDownloadURL().then(async (downloadUrl) => {
           const fileData = {
             name: file.name,
             size: file.size,
@@ -85,7 +82,7 @@ const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
               onChange={handlePasscodeChange}
             />
           </div>
-          <button type="submit btn-grad">Upload</button>
+          <button type="submit" className="btn-grad">Upload</button>
         </div>
       </form>
       <FileList

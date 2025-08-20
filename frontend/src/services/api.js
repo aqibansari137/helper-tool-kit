@@ -56,11 +56,22 @@ export const fetchUploadedFile = async () => {
   }
 };
 
-export const deleteUploadedFile = async () => {
+export const fetchUploadedFileById = async (fileId) => {
   try {
-    const res = await axios.delete(`${API_URL}/allFiles`);
-    console.log(res.data.msg); // Log success message
+    const res = await axios.get(`${API_URL}/uploadFile/${fileId}`);
+    return res.data;
   } catch (err) {
-    console.error("Error deleting files", err);
+    console.error("Error fetching files", err);
   }
 };
+
+export const deleteUploadedFile = async (fileIds) => {
+  try {
+    const res = await axios.post(`${API_URL}/deleteFiles`, { ids: fileIds });
+    return res.data;
+  } catch (err) {
+    console.error("Error deleting files", err);
+    throw err;
+  }
+};
+

@@ -1,0 +1,29 @@
+.clipboard-area {
+  display: grid;
+  padding: 0 !important;
+  grid-template-columns: repeat(4, 1fr);
+
+  & > div{
+    display: flex;
+
+    textarea{
+      width: 100%;
+      margin-bottom: 1em;
+    }
+  }
+
+  @media (max-width: 786px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.delList {
+  position: relative;
+  right: 1.3em;
+  top: 0.3em;
+}
+

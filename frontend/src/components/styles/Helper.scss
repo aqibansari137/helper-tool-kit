@@ -21,6 +21,14 @@ svg {
   padding: 2em 3em;
   border: 1px solid;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 }
 .dialogBoxCross {
   position: absolute;
@@ -30,38 +38,31 @@ svg {
   z-index: 1;
 }
 
-@media (max-width: 768px) {
-  .dialogBoxArea {
-    width: 80%;
-  }
-}
-@media (max-width: 576px) {
-  .dialogBoxArea {
-    width: 90%;
-  }
-}
 body {
   min-height: 100vh;
+
+  #root {
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../assets/peakpx.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: auto;
+    color: white;
+
+    footer {
+      margin-top: auto !important;
+    }
+  }
 }
-body #root {
-  min-height: inherit;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background-image: url(../../assets/peakpx.webp);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  overflow: auto;
-  color: white;
-}
-body #root footer {
-  margin-top: auto !important;
-}
+
 textarea,
 input {
   background-color: rgba(255, 255, 255, 0.096) !important;
@@ -126,38 +127,42 @@ tr {
   white-space: nowrap;
   will-change: box-shadow, transform;
   font-size: 18px;
+
+  &:focus {
+    box-shadow: #11184e 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0b124b 0 -3px 0 inset;
+  }
+
+  &:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0e1549 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: #0c1556 0 3px 7px inset;
+    transform: translateY(2px);
+  }
 }
 
-.btn-grad:focus {
-  box-shadow: #11184e 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0b124b 0 -3px 0 inset;
-}
 
-.btn-grad:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #0e1549 0 -3px 0 inset;
-  transform: translateY(-2px);
-}
-
-.btn-grad:active {
-  box-shadow: #0c1556 0 3px 7px inset;
-  transform: translateY(2px);
-}
 .btn-grad-red {
   background-image: radial-gradient(
     100% 100% at 100% 0,
     #8e2727 0,
     #610e0e 100%
   );
-}
-.btn-grad-red:active {
-  box-shadow: #560c0c 0 3px 7px inset;
+
+  &:active {
+    box-shadow: #560c0c 0 3px 7px inset;
+  }
 }
 .to-top {
   box-shadow: 0 0 3px 0 #a38ac5;
-}
-.to-top:hover {
-  color: white;
+  
+  &:hover {
+    color: white;
+  }
 }
 .form-select {
   color: white !important;

@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Logo from "../../assets/technical-support.png";
 import { NavLink } from "react-router-dom";
-import "../styles/Helper.css";
+import "../styles/Helper.scss";
 import menuLink from "../../data/navigation.json";
 
 export default class Header extends Component {

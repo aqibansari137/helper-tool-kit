@@ -47,6 +47,17 @@
     .file-list-container{
         background-color: rgba(255, 255, 255, 0.096);
         padding: 15px 10px;
+        position: relative;
+
+        .delete-btn{
+            position: absolute;
+            right: 20px;
+            top: -115px;
+            
+            @media (min-width:768px){
+                top: -125px;
+            }
+        }
 
         a{
             color: #fff;
@@ -90,6 +101,16 @@
             
             @media (min-width:768px){
                 box-shadow: 0 0 5px 0 #000;
+            }
+
+            .file-checkbox{
+                width: 16px;
+                
+                @media (max-width:767px){
+                    position: relative;
+                    float: right;
+                    z-index: 1;
+                }
             }
         }
         

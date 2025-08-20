@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Hangman.css";
+import "../styles/Hangman.scss";
 import clickSound from "../../assets/click-sound.mp3";
 import winSound from "../../assets/win-sound.wav";
 import loseSound from "../../assets/lose-sound.wav";

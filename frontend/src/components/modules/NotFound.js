@@ -1,6 +1,6 @@
 import React from "react";
 import notFound from "../../assets/not-found.png";
-import "../styles/NotFound.css";
+import "../styles/NotFound.scss";
 import { NavLink } from "react-router-dom";
 
 export default function NotFound() {

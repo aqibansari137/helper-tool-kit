@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
-import "../styles/ClipBoard.css";
+import "../styles/ClipBoard.scss";
 import * as Icon from "react-bootstrap-icons";
 
 export default class ClipBoard extends Component {

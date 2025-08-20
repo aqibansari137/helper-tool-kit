@@ -6,7 +6,7 @@ import {
   getCodeData,
   updateCodeData,
 } from "../../services/api";
-import "../styles/CodeStore.css";
+import "../styles/CodeStore.scss";
 import loaderGif from "../../assets/doggy.gif";
 export default function CodeStore() {
   const [apiStatus, setApiStatus] = useState("get");

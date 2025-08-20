@@ -8,6 +8,7 @@ import {
 import {
   uploadFile,
   getAllFiles,
+  findFilesById,
   downloadUploadedFiles,
   deleteUploadedFiles,
 } from "../controller/fileupload-controller.js";
@@ -23,6 +24,7 @@ router.put("/updatecodedata/:id", updateCode);
 router.post("/upload", uploadFile);
 router.get("/allFiles", getAllFiles);
 router.get("/downloads/:id", downloadUploadedFiles);
-router.delete("/allFiles", deleteUploadedFiles);
+router.get("/uploadFile/:id", findFilesById);
+router.post("/deleteFiles", deleteUploadedFiles);
 
 export default router;

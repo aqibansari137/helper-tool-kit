@@ -1,0 +1,74 @@
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tracker-card-list {
+  .tracker-card {
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    min-width: 264px;
+
+    .head {
+      background-color: #1c4562;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #fafafa;
+
+      .title,
+      .time {
+        padding: 5px 10px;
+      }
+
+      .title {
+        font-size: 22px;
+        margin: 0;
+      }
+
+      .time {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        margin: 0;
+        line-height: 1.2;
+        background-color: lightblue;
+        color: #1c4562;
+        font-weight: bold;
+        border-radius: 0 10px 0 0;
+      }
+    }
+
+    .tracker-card-body {
+      table {
+        width: 100%;
+
+        tr {
+          td {
+            font-size: 18px;
+            padding: 5px 10px;
+
+            &:last-child {
+              border-left: 1px solid #fafafa;
+              text-align: right;
+            }
+          }
+
+          &:last-child {
+            td:last-child {
+              border-top: 1px solid #fafafa;
+            }
+          }
+        }
+      }
+
+      .amount {
+        font-size: 18px;
+        margin: 0;
+      }
+    }
+  }
+}

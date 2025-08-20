@@ -60,13 +60,39 @@ export const downloadUploadedFiles = async (req, res) => {
   }
 };
 
+export const findFilesById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const file = await File.findById(id);
+    if (!file) {
+      return res.status(404).json({ msg: "File not found" });
+    }
+
+    res.status(200).json({name:file.originalName ,url:file.path});
+  } catch (err) {
+    console.error("Unexpected error occurred:", err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 export const deleteUploadedFiles = async (req, res) => {
   try {
-    // Delete all files from the database
-    const deletedFiles = await File.deleteMany({});
-    console.log(`Deleted ${deletedFiles.deletedCount} files from database`);
+    const { ids } = req.body;
+
+    if (!ids || ids.length === 0) {
+      return res.status(400).json({ msg: "No file IDs provided" });
+    }
+
+    // Delete only selected files
+    const deletedFiles = await File.deleteMany({ _id: { $in: ids } });
+
+    res.json({
+      msg: `Deleted ${deletedFiles.deletedCount} files from database`,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
+
