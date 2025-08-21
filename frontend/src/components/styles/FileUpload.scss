@@ -49,6 +49,12 @@
         padding: 15px 10px;
         position: relative;
 
+        .dialogBoxArea{
+            @media (min-width:768px) {
+                top: 0;
+            }
+        }
+
         .delete-btn{
             position: absolute;
             right: 20px;

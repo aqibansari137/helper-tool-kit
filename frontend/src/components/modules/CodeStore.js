@@ -27,13 +27,22 @@ export default function CodeStore() {
   });
 
   const [myData, setMyData] = useState([]);
+
   useEffect(() => {
     getCodeApi();
   }, [apiStatus]);
+
   useEffect(() => {
     myData.sort((a, b) => a.heading.localeCompare(b.heading));
     setFilteredData(myData);
   }, [myData]);
+
+  useEffect(()=>{
+    const hashVal = window.location.hash || "";
+    if(hashVal){
+      document.getElementById(hashVal.slice(1))?.click();
+    }
+  })
 
   const getCodeApi = async () => {
     try {

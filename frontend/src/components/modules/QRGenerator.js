@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import QRCode from "react-qr-code";
-import "../styles/QrGenerator.css";
+import "../styles/QrGenerator.scss";
 
 const QRGenerator = ({ showAlertMsg }) => {
   const [qrText, setQrText] = useState("");

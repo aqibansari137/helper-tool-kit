@@ -86,7 +86,6 @@ export default class ClipBoard extends Component {
     this.setState({
       clipList: currList,
     });
-    console.log(id);
   };
   clearClip = () => {
     this.setState({
