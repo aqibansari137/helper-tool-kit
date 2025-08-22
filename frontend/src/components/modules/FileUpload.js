@@ -27,34 +27,41 @@ const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoaderShow(true);
 
     if (!file) {
       showAlertMsg("Please select a file", "alert-primary");
-    } else {
-      const storageRef = storage.ref();
-      const fileRef = storageRef.child(file.name);
-
-      fileRef.put(file).then(() => {
-        fileRef.getDownloadURL().then(async (downloadUrl) => {
-          const fileData = {
-            name: file.name,
-            size: file.size,
-            downloadUrl: downloadUrl,
-            passcode: passcode,
-          };
-
-          let response = await uploadFIle(fileData);
-          showAlertMsg(response, "alert-success");
-          if (uploadRef.current) {
-            uploadRef.current.value = "";
-          }
-          setPasscode("");
-          setLoaderShow(false);
-          triggerChildFunction();
-        });
-      });
+      return;
     }
+    
+    if(passcode === ""){
+      showAlertMsg("Please add passcode for file to continue", "alert-primary");
+      return;
+    }
+
+    setLoaderShow(true);
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(file.name);
+
+    fileRef.put(file).then(() => {
+      fileRef.getDownloadURL().then(async (downloadUrl) => {
+        const fileData = {
+          name: file.name,
+          size: file.size,
+          downloadUrl: downloadUrl,
+          passcode: passcode,
+        };
+
+        let response = await uploadFIle(fileData);
+        showAlertMsg(response, "alert-success");
+        if (uploadRef.current) {
+          uploadRef.current.value = "";
+        }
+        setPasscode("");
+        setFile(null);
+        setLoaderShow(false);
+        triggerChildFunction();
+      });
+    });
   };
 
   return (
@@ -82,7 +89,9 @@ const FileUpload = ({ setLoaderShow, showAlertMsg }) => {
               onChange={handlePasscodeChange}
             />
           </div>
-          <button type="submit" className="btn-grad">Upload</button>
+          <button type="submit" className="btn-grad">
+            Upload
+          </button>
         </div>
       </form>
       <FileList

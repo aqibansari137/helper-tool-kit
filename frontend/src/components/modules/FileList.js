@@ -229,7 +229,7 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
                   <th>Filename</th>
                   <th>Size</th>
                   <th>Date & Time</th>
-                  <th>Action</th>
+                  <th>Passcode</th>
                   <th>Download</th>
                 </tr>
               </thead>
@@ -268,6 +268,13 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
                     </td>
                   </tr>
                 ))}
+                {
+                  filteredData.length === 0 && <tr>
+                    <td colSpan={6}>
+                      <h3 className="mt-2">No results found!</h3>
+                    </td>
+                  </tr>
+                }
               </tbody>
             </table>
           </>

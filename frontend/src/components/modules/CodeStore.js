@@ -25,6 +25,7 @@ export default function CodeStore() {
     code: "",
     category: "",
   });
+  const [copied, setCopied] = useState(false);
 
   const [myData, setMyData] = useState([]);
 
@@ -37,12 +38,15 @@ export default function CodeStore() {
     setFilteredData(myData);
   }, [myData]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const hashVal = window.location.hash || "";
-    if(hashVal){
-      document.getElementById(hashVal.slice(1))?.click();
+    if (hashVal) {
+      const accEle = document.getElementById(hashVal.slice(1));
+      if(accEle && !accEle.classList.contains("active")){
+        accEle.click();
+      }
     }
-  })
+  });
 
   const getCodeApi = async () => {
     try {
@@ -137,6 +141,21 @@ export default function CodeStore() {
     setTimeout(function () {
       setCopyStat(false);
     }, 1000);
+  };
+
+  const copyAccLink = (e) => {
+    const wrapper = e.target.closest(".accordian-wrapper");
+
+    if (wrapper) {
+      const question = wrapper.querySelector(".accordian-question");
+
+      if (question) {
+        const url = window.location.origin + window.location.pathname + "#" + question.id;
+        navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    }
   };
 
   const confirmCheck = () => {
@@ -247,7 +266,26 @@ export default function CodeStore() {
                       readOnly
                     ></textarea>
                     <div className="textarea-actions">
+                      <Icon.Check2
+                        title="Copied!"
+                        style={{
+                          fontSize: "20px",
+                          color: "green",
+                          display: copied ? "inline-block" : "none",
+                        }}
+                        className="me-3"
+                      />
+                      <Icon.Link45deg
+                        title="copy link to share"
+                        style={{
+                          fontSize: "20px",
+                          display: copied ? "none" : "inline-block",
+                        }}
+                        className="me-3"
+                        onClick={copyAccLink}
+                      />
                       <Icon.Clipboard2
+                        title="copy code"
                         onClick={() => copyToClipboard(item.code)}
                         style={{ display: copyStat ? "none" : "inline-block" }}
                       />
@@ -258,10 +296,12 @@ export default function CodeStore() {
                         }}
                       />
                       <Icon.PencilFill
+                        title="edit code"
                         className="mx-3"
                         onClick={() => updateField(item)}
                       />
                       <Icon.TrashFill
+                        title="delete code"
                         onClick={() =>
                           setConfirmPopUp({
                             ...confirmPopUp,
