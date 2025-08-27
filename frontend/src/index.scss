@@ -11,7 +11,7 @@ body {
   font-family: "OpenSans-Medium";
   src: local("OpenSans-Medium"),
     url("./fonts/OpenSans/OpenSans-Medium.ttf") format("truetype");
-  font-weight: bold;
+  font-weight: normal;
 }
 
 code {
@@ -35,4 +35,82 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+
+  @media (min-width: 768px) {
+    box-shadow: 0 0 5px 0 #000;
+    border: 0;
+  }
+}
+
+thead {
+  display: table-header-group;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+th,
+td {
+  background-color: rgba(0, 0, 0, 0.43);
+  padding: 8px;
+  text-align: left;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  
+  &:first-child {
+    border-left: none;
+  }
+}
+
+th {
+  border-bottom: 3px solid #ddd;
+  letter-spacing: 0.5px;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+tr:last-child {
+  td {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  tr {
+    display: block;
+    margin-bottom: 15px;
+    box-shadow: 0 0 5px 0 #000;
+    border-radius: 3px;
+  }
+
+  td {
+    display: block;
+    font-size: 13px;
+    border: none;
+    position: relative;
+
+    &:last-child {
+      text-align: left;
+    }
+
+    &::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 10px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+
 }

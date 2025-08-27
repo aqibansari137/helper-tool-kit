@@ -246,7 +246,7 @@ export default function CodeStore() {
           </div>
         ) : null}
         <div className="code-group mt-5">
-          <h4>Work</h4>
+          <h4>Code Store</h4>
           {filteredData ? (
             filteredData?.map((item, index) => {
               return (

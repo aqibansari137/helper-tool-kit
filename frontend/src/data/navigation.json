@@ -26,5 +26,9 @@
     {
         "name" : "QR Generator",
         "link" : "/qr-generate"
+    },
+    {
+        "name" : "Due Tracker",
+        "link" : "/due-tracker"
     }
 ]

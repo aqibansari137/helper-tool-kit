@@ -5,7 +5,11 @@ import React, {
   useImperativeHandle,
   useCallback,
 } from "react";
-import { deleteUploadedFile, fetchUploadedFile, fetchUploadedFileById } from "../../services/api";
+import {
+  deleteUploadedFile,
+  fetchUploadedFile,
+  fetchUploadedFileById,
+} from "../../services/api";
 import axios from "axios";
 import { storage } from "../../firebase";
 
@@ -125,50 +129,48 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
     } else {
       setSelectedFiles(filteredData.map((f) => f._id));
     }
-  };  
-  
+  };
+
   const handleDeleteSelected = async () => {
     if (delPass !== process.env.REACT_APP_ADMIN_PASSCODE) {
       showAlertMsg("Unauthorized! Wrong passcode.", "alert-danger");
       setShowDelPopup(false);
       setDelPass("");
-    return;
-  }
-  
-  try {
-    setLoaderShow(true);
-    setShowDelPopup(false);
-    setDelPass("");
-    for (let id of selectedFiles) {
-      const file = files.find((f) => f._id === id);
-      if (file) {
-        let response = await fetchUploadedFileById(file._id);
-        if(response){ 
-          // delete from firebase
-          const fileRef = storage.refFromURL(response.url);
-          await fileRef.delete();
-          
-          // delete from database
-          await deleteUploadedFile(file._id);
-        }
-      }
+      return;
     }
 
-    // UI update
-    const updatedFiles = files.filter((f) => !selectedFiles.includes(f._id));
-    setFiles(updatedFiles);
-    setFilteredData(updatedFiles);
-    setSelectedFiles([]);
-    showAlertMsg("Selected files deleted successfully", "alert-success");
-  } catch (error) {
-    console.error("Delete error:", error);
-    showAlertMsg("Failed to delete selected files", "alert-danger");
-  } finally {
-    setLoaderShow(false);
-  }
-};
+    try {
+      setLoaderShow(true);
+      setShowDelPopup(false);
+      setDelPass("");
+      for (let id of selectedFiles) {
+        const file = files.find((f) => f._id === id);
+        if (file) {
+          let response = await fetchUploadedFileById(file._id);
+          if (response) {
+            // delete from firebase
+            const fileRef = storage.refFromURL(response.url);
+            await fileRef.delete();
 
+            // delete from database
+            await deleteUploadedFile(file._id);
+          }
+        }
+      }
 
+      // UI update
+      const updatedFiles = files.filter((f) => !selectedFiles.includes(f._id));
+      setFiles(updatedFiles);
+      setFilteredData(updatedFiles);
+      setSelectedFiles([]);
+      showAlertMsg("Selected files deleted successfully", "alert-success");
+    } catch (error) {
+      console.error("Delete error:", error);
+      showAlertMsg("Failed to delete selected files", "alert-danger");
+    } finally {
+      setLoaderShow(false);
+    }
+  };
 
   return (
     <div>
@@ -177,32 +179,41 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
         <button className="clear" onClick={handleDeleteAllFiles}>
           Clear
         </button>
-        {
-          showDelPopup && <div
-          className="dialogBoxArea row gap-2 confirm-popUp"
-          style={{ zIndex: "20", width: "auto" }}
-        >
-          <h3 className="col-12 text-center">Admin Password Required!!</h3>
-          <input name="pass" value={delPass} type="password" onChange={(e)=>setDelPass(e.target.value)}/>
-          <button
-            className="col btn-grad"
-            id="confirmBtn"
-            onClick={handleDeleteSelected}
+        {showDelPopup && (
+          <div
+            className="dialogBoxArea row gap-2 confirm-popUp"
+            style={{ zIndex: "20", width: "auto" }}
           >
-            Confirm
-          </button>
+            <h3 className="col-12 text-center">Admin Password Required!!</h3>
+            <input
+              name="pass"
+              value={delPass}
+              type="password"
+              onChange={(e) => setDelPass(e.target.value)}
+            />
+            <button
+              className="col btn-grad"
+              id="confirmBtn"
+              onClick={handleDeleteSelected}
+            >
+              Confirm
+            </button>
+            <button
+              className="col btn-grad btn-grad-red"
+              onClick={() => setShowDelPopup(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+        {selectedFiles.length !== 0 && (
           <button
-            className="col btn-grad btn-grad-red"
-            onClick={()=>setShowDelPopup(false)}
+            onClick={() => setShowDelPopup(true)}
+            className="btn-grad btn-grad-red delete-btn"
           >
-            Cancel
+            Delete Selected
           </button>
-        </div>
-}
-        {selectedFiles.length!==0 && <button onClick={()=>setShowDelPopup(true)} className="btn-grad btn-grad-red delete-btn">
-          Delete Selected
-        </button>
-        }
+        )}
         {files.length !== 0 ? (
           <>
             <input
@@ -237,13 +248,13 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
                 {filteredData.map((file, i) => (
                   <tr key={file._id}>
                     <td>
-                     <input
-                       type="checkbox"
-                       className="file-checkbox"
-                       checked={selectedFiles.includes(file._id)}
-                       onChange={() => toggleFileSelection(file._id)}
-                     />
-                   </td>
+                      <input
+                        type="checkbox"
+                        className="file-checkbox"
+                        checked={selectedFiles.includes(file._id)}
+                        onChange={() => toggleFileSelection(file._id)}
+                      />
+                    </td>
                     <td>{file.originalName}</td>
                     <td>{formatBytes(file.size)}</td>
                     {/* <td>{new Date(file.date).toLocaleDateString("en-GB",{})}</td> */}
@@ -268,13 +279,13 @@ const FileList = forwardRef(({ setLoaderShow, showAlertMsg }, ref) => {
                     </td>
                   </tr>
                 ))}
-                {
-                  filteredData.length === 0 && <tr>
+                {filteredData.length === 0 && (
+                  <tr>
                     <td colSpan={6}>
                       <h3 className="mt-2">No results found!</h3>
                     </td>
                   </tr>
-                }
+                )}
               </tbody>
             </table>
           </>

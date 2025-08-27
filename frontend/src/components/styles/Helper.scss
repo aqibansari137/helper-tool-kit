@@ -21,6 +21,7 @@ svg {
   padding: 2em 3em;
   border: 1px solid;
   border-radius: 10px;
+  z-index: 1;
 
   @media (max-width: 768px) {
     width: 80%;
